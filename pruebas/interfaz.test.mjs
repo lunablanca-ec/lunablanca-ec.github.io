@@ -36,9 +36,32 @@ test('cada imagen trae alt, ancho y alto; solo la del hero es prioritaria', () =
 
 test('no quedan marcadores {…} sin llenar y los precios salen de sitio.json', () => {
   assert.doesNotMatch(cuerpo(pagina), /\{[a-zA-Z]+\}/);
-  assert.match(pagina, /desde <span class="monto">\$15<\/span> por persona/);
-  assert.match(pagina, /Niños de 5 a 12 años, \$7,50 · menores de 5 no pagan/);
+  assert.match(pagina, /desde <s class="regular" data-sello><span class="sr">antes <\/span>\$20<\/s> <span class="monto">\$15<\/span> por persona/);
+  assert.match(pagina, /Niños de 5 a 12 años, <s class="regular" data-sello><span class="sr">antes <\/span>\$10<\/s> \$7,50 · menores de 5 no pagan/);
   assert.match(pagina, /Hasta 10 personas por grupo/);
+});
+
+test('precio regular tachado junto al de apertura; desde el 1/1/2027 se oculta y los precios no cambian', () => {
+  assert.equal((pagina.match(/<s class="regular"/g) ?? []).length >= 4, true); // resumen, niños, calculadora (2) y pregunta
+  assert.doesNotMatch(paginaEnero, /<s class="regular"|\$20|\$10(?!\d)/);
+  assert.match(paginaEnero, /desde <span class="monto">\$15<\/span> por persona/);
+  assert.match(paginaEnero, /Niños de 5 a 12 años, \$7,50 · menores de 5 no pagan/);
+  for (const h of [pagina, paginaEnero]) assert.doesNotMatch(cuerpo(h), /organizador/i);
+});
+
+test('maps real, distancia nueva y sin la frase anterior', () => {
+  assert.equal(s.redes.maps, 'https://maps.app.goo.gl/kMJ9WTQH3uZZ9Ke1A');
+  assert.ok(pagina.includes('href="https://maps.app.goo.gl/kMJ9WTQH3uZZ9Ke1A"'));
+  assert.ok((pagina.match(/a unas dos horas y media de Quito/g) ?? []).length >= 3);
+  assert.doesNotMatch(pagina, /poco más de dos horas/);
+});
+
+test('galería "Así se vive": máximo 9 piezas, todas con carga diferida', () => {
+  const bloque = /<section id="asi-se-vive"[\s\S]*?<\/section>/.exec(pagina)?.[0] ?? '';
+  const imgs = bloque.match(/<img [^>]*>/g) ?? [];
+  assert.ok(imgs.length >= 1 && imgs.length <= 9, `hay ${imgs.length} piezas`);
+  for (const i of imgs) assert.match(i, /loading="lazy"/, i);
+  assert.doesNotMatch(bloque, /<video/);
 });
 
 test('el sello va en el resumen y en la pregunta 2 mientras es vigente, y desaparece en enero', () => {

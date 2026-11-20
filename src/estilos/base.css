@@ -42,6 +42,8 @@ h2 { font: 500 var(--t-h2)/1.05 var(--f-titulo); font-variant-numeric: lining-nu
 /* Sello de apertura: cápsula con borde fino (nunca cinta ni rojo) */
 .sello { display: inline-block; padding: 4px 12px; border: 1px solid var(--acento); border-radius: 999px; color: var(--acento); font: 500 .8125rem/1.3 var(--f-texto); }
 .sello-fila { margin-top: var(--e-1); }
+/* Precio regular tachado junto al de apertura (solo mientras rige el sello) */
+.regular { margin-right: .1em; font-weight: 400; color: var(--texto-2); text-decoration-thickness: 1px; }
 
 /* Texto de cada momento */
 .texto { padding-inline: var(--margen); }
@@ -78,6 +80,19 @@ summary:focus-visible { outline-offset: -2px; }
 .enlaces a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
 .derechos { display: flex; align-items: center; gap: var(--e-2); margin-top: var(--e-2); }
 .derechos img { width: 40px; height: 40px; }
+
+/* Galería "Así se vive": piezas en 4:5, con carga diferida */
+.galeria { padding: var(--e-4) var(--margen) var(--e-6); }
+.galeria h2 { margin-bottom: var(--e-3); }
+.galeria-rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.galeria-rejilla li { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radio-marco); background: var(--linea); }
+.galeria-rejilla li:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
+.galeria-rejilla picture, .galeria-rejilla img { width: 100%; height: 100%; }
+.galeria-rejilla img { object-fit: cover; }
+@media (min-width: 900px) {
+  .galeria-rejilla { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .galeria-rejilla li:last-child:nth-child(odd) { grid-column: auto; aspect-ratio: 4 / 5; }
+}
 
 /* Botón flotante: solo móvil; entra y sale con opacity y translateY */
 .flotante { position: fixed; right: 16px; bottom: 16px; z-index: 10; display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--e-3); border-radius: 999px;

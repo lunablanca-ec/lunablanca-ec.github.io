@@ -16,7 +16,7 @@ const jsonSeguro = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
 
 /** Cómo se acomoda cada momento. Es diseño, no contenido: por eso vive aquí y no en sitio.json. */
 const DISENO = {
-  'm-0900': 'sendero', 'm-1200': 'piscina', 'm-1400': 'tobogan', 'm-1700': 'rejilla', 'm-2000': 'noche',
+  'm-0900': 'sendero', 'm-1030': 'luna', 'm-1200': 'piscina', 'm-1400': 'familia', 'm-1700': 'rejilla', 'm-2000': 'noche',
 };
 // Dónde cambia el cielo (dirección §3.1): el cruce ocurre mientras el medio cubre la pantalla.
 const CRUCE = { 'm-1200': 'mediodia', 'm-1530': 'tarde' };
@@ -76,12 +76,20 @@ export function renderizar({ sitio, medios, hoy, activos = {} }) {
     maxPersonas: precios.maxPersonas,
     anio: hoy.slice(0, 4),
   };
+  // Precio regular tachado: solo mientras rige el precio de apertura. Lleva data-sello, así que el
+  // navegador también lo quita el 1 de enero sin reconstruir la página. Los precios no cambian solos.
+  const regular = (valor) => (sello
+    ? `<s class="regular" data-sello><span class="sr">${esc(apertura.regularAntes)} </span>${formatearMoneda(aCentavos(valor))}</s> `
+    : '');
+  const sinRegular = { regularAdulto: '', regularNino: '' };
   // Texto plano (atributos, JSON) y texto con HTML (el sello es un <span data-sello>).
-  const plano = (texto) => esc(rellenar(texto, { ...base, sello: '' }));
-  const crudo = (texto) => rellenar(texto, { ...base, sello: '' });
+  const plano = (texto) => esc(rellenar(texto, { ...base, sello: '', ...sinRegular }));
+  const crudo = (texto) => rellenar(texto, { ...base, sello: '', ...sinRegular });
   const selloHtml = (texto) => (sello ? `<span class="sello" data-sello>${esc(texto)}</span>` : '');
   const html = (texto, extra = {}) =>
-    rellenar(esc(texto), { ...base, sello: selloHtml(apertura.selloTexto), ...extra });
+    rellenar(esc(texto), {
+      ...base, sello: selloHtml(apertura.selloTexto), regularAdulto: regular(precios.adultoRegular), regularNino: regular(precios.ninoRegular), ...extra,
+    });
 
   const wa = (clave) => urlWhatsapp(reserva.whatsapp, reserva.mensajes[clave]);
   const inicial = c.inicial;
@@ -113,7 +121,7 @@ export function renderizar({ sitio, medios, hoy, activos = {} }) {
     const fuente = m.poster ?? m;
     const srcset = (fmt) => m.anchos.map((a) => `medios/${fuente[fmt][a].archivo} ${a}w`).join(', ');
     const atributos = prioridad ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"';
-    return `<picture><source type="image/avif" srcset="${srcset('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${srcset('webp')}" sizes="${sizes}"><img src="medios/${fuente.webp[720].archivo}" alt="${esc(m.alt)}" width="${m.width}" height="${m.height}" ${atributos}></picture>`;
+    return `<picture><source type="image/avif" srcset="${srcset('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${srcset('webp')}" sizes="${sizes}"><img src="medios/${(fuente.webp[720] ?? fuente.webp[m.anchos.at(-1)]).archivo}" alt="${esc(m.alt)}" width="${m.width}" height="${m.height}" ${atributos}></picture>`;
   }
 
   /** Marco con foto, o con poster + video (decorativo) y botón que solo se muestra con reduced-motion o Save-Data. */
@@ -165,12 +173,30 @@ export function renderizar({ sitio, medios, hoy, activos = {} }) {
         <div class="lienzo">${bloqueTexto(m)}<div class="marcos">${marco(uno, { clase: 'r-3-2', sizes: '(min-width: 900px) 40vw, 100vw' })}${marco(dos, { clase: 'r-4-5', sizes: '(min-width: 900px) 24vw, 62vw' })}</div></div>
       </figure>`);
     }
-    if (diseno === 'tobogan') {
-      // Decisión de dirección: cuadro fijo y pequeño, sin video (menos balneario).
+    if (diseno === 'luna') {
+      // Luna a sangre; después las fotos de la familia con Luna fuera del agua; cierra el clip de los mimos.
+      const foto = (id) => marco(id, { clase: 'r-4-5', sizes: '(min-width: 900px) 24vw, 62vw' });
+      return seccion(`
+      <figure class="medio medio--sangre">
+        ${respiro(m.hora)}
+        <div class="lienzo"><div class="marcos">${marco(uno)}</div>${bloqueTexto(m, { sobre: true })}</div>
+      </figure>
+      <figure class="medio medio--cielo">
+        <div class="lienzo"><div class="marcos">${foto(dos)}${foto(tres)}</div>
+          <div class="texto revela"><p class="linea">${html(m.lineaFotos)}</p></div></div>
+      </figure>
+      <figure class="medio medio--sangre">
+        <div class="lienzo"><div class="marcos">${marco(cuatro)}</div>
+          <div class="texto sobre-medio revela"><p class="linea">${html(m.lineaClip)}</p></div></div>
+      </figure>`);
+    }
+    if (diseno === 'familia') {
+      // Contraste: los chicos juegan (tobogán y parque) y los adultos descansan. Cuadros fijos, sin video.
+      const celdas = m.medios.map((id, i) => `<figure class="celda">${marco(id, { clase: 'r-celda', fijo: true, sizes: i === 0 ? '(min-width: 900px) 34vw, 96vw' : '(min-width: 900px) 17vw, 46vw' })}<figcaption>${esc(m.rotulos[i])}</figcaption></figure>`).join('');
       return seccion(`
       <figure class="medio medio--cielo">
         ${respiro(m.hora)}
-        <div class="lienzo"><div class="marcos">${marco(uno, { clase: 'r-3-2 chico', sizes: '(min-width: 900px) 40vw, 66vw', fijo: true })}</div>${bloqueTexto(m)}</div>
+        <div class="lienzo">${bloqueTexto(m)}<div class="marcos"><div class="rejilla rejilla--tres">${celdas}</div></div></div>
       </figure>`);
     }
     if (diseno === 'rejilla') {
@@ -199,6 +225,15 @@ export function renderizar({ sitio, medios, hoy, activos = {} }) {
   // Pausa de cielo antes de la noche: sin texto, solo el cielo y el astro.
   const crepusculo = `
     <div class="crepusculo" id="crepusculo" data-cielo="noche" data-cruza="noche" aria-hidden="true"></div>`;
+
+  // ---------- Galería "Así se vive" (carga diferida) ----------
+
+  const piezasGaleria = (t.galeria?.medios ?? []).filter((id) => items[id]);
+  const galeria = piezasGaleria.length ? `
+    <section id="asi-se-vive" class="galeria" data-cielo="noche" aria-labelledby="titulo-galeria">
+      <h2 id="titulo-galeria">${esc(t.galeria.titulo)}</h2>
+      <ul class="galeria-rejilla">${piezasGaleria.map((id) => `<li>${imagen(id, { sizes: '(min-width: 900px) 28vw, 46vw' })}</li>`).join('')}</ul>
+    </section>` : '';
 
   // ---------- Calculadora ----------
 
@@ -332,7 +367,7 @@ ${t.momentos.map((m) => (DISENO[m.id] === 'noche' ? crepusculo : '') + momento(m
     <section id="antes-de-venir" class="antes" data-cielo="noche" aria-labelledby="titulo-antes">
       <h2 id="titulo-antes">${esc(t.preguntasTitulo)}</h2>${t.preguntas.map((q) => `
       <details><summary>${esc(q.p)}</summary><div class="respuesta">${q.r.map((p) => `<p>${enlaceCalculadora(p)}</p>`).join('')}</div></details>`).join('')}
-    </section>
+    </section>${galeria}
   </main>
   <footer class="pie" data-cielo="noche">
     <img class="pie-logo" src="${logo('oscuro')}" alt="${esc(negocio.nombre)}" width="820" height="220" loading="lazy" decoding="async">

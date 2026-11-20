@@ -324,9 +324,42 @@
     "bbq": {
       "momento": "12:00",
       "tipo": "cuadro",
-      "alt": "Fila de kioscos techados con mesas de piedra y bancas para el grupo, entre el césped y los árboles",
+      "alt": "Kiosco techado con mesa de piedra y bancas para el grupo, entre el césped y el bosque",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "bbq-480.avif",
+          "bytes": 33887,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "bbq-720.avif",
+          "bytes": 62442,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "bbq-480.webp",
+          "bytes": 57710
+        },
+        "720": {
+          "archivo": "bbq-720.webp",
+          "bytes": 105456
+        }
+      }
+    },
+    "tobogan": {
+      "momento": "14:00",
+      "tipo": "cuadro",
+      "alt": "Gran salpicadura al final del tobogán azul que baja entre el cerro verde hacia la piscina",
       "width": 1080,
-      "height": 1350,
+      "height": 720,
       "anchos": [
         480,
         720,
@@ -334,97 +367,33 @@
       ],
       "avif": {
         "480": {
-          "archivo": "bbq-480.avif",
-          "bytes": 25255,
+          "archivo": "tobogan-480.avif",
+          "bytes": 20607,
           "calidad": 50
         },
         "720": {
-          "archivo": "bbq-720.avif",
-          "bytes": 51945,
+          "archivo": "tobogan-720.avif",
+          "bytes": 41972,
           "calidad": 50
         },
         "1080": {
-          "archivo": "bbq-1080.avif",
-          "bytes": 94900,
+          "archivo": "tobogan-1080.avif",
+          "bytes": 74584,
           "calidad": 50
         }
       },
       "webp": {
         "480": {
-          "archivo": "bbq-480.webp",
-          "bytes": 41686
+          "archivo": "tobogan-480.webp",
+          "bytes": 37682
         },
         "720": {
-          "archivo": "bbq-720.webp",
-          "bytes": 85180
+          "archivo": "tobogan-720.webp",
+          "bytes": 79912
         },
         "1080": {
-          "archivo": "bbq-1080.webp",
-          "bytes": 156006
-        }
-      }
-    },
-    "tobogan": {
-      "momento": "14:00",
-      "tipo": "video",
-      "alt": "Tobogán azul que sale del bosque hacia una piscina de agua celeste, junto a un tobogán de colores",
-      "width": 1080,
-      "height": 1920,
-      "anchos": [
-        480,
-        720,
-        1080
-      ],
-      "poster": {
-        "avif": {
-          "480": {
-            "archivo": "tobogan-poster-480.avif",
-            "bytes": 37758,
-            "calidad": 50
-          },
-          "720": {
-            "archivo": "tobogan-poster-720.avif",
-            "bytes": 77081,
-            "calidad": 50
-          },
-          "1080": {
-            "archivo": "tobogan-poster-1080.avif",
-            "bytes": 144549,
-            "calidad": 50
-          }
-        },
-        "webp": {
-          "480": {
-            "archivo": "tobogan-poster-480.webp",
-            "bytes": 61152
-          },
-          "720": {
-            "archivo": "tobogan-poster-720.webp",
-            "bytes": 125406
-          },
-          "1080": {
-            "archivo": "tobogan-poster-1080.webp",
-            "bytes": 225876
-          }
-        }
-      },
-      "video": {
-        "width": 540,
-        "height": 960,
-        "fps": 24,
-        "duracion": 6.3,
-        "webm": {
-          "archivo": "tobogan.webm",
-          "bytes": 698706,
-          "crf": 34,
-          "kbps": 619,
-          "duracion": 6.3
-        },
-        "mp4": {
-          "archivo": "tobogan.mp4",
-          "bytes": 603501,
-          "crf": 32,
-          "duracion": 6.3
+          "archivo": "tobogan-1080.webp",
+          "bytes": 135820
         }
       }
     },
@@ -602,8 +571,8 @@
     },
     "cancha": {
       "momento": "17:00",
-      "tipo": "foto",
-      "alt": "Cancha de césped sintético con líneas blancas, rodeada de bosque, con una gradería techada a un lado",
+      "tipo": "cuadro",
+      "alt": "Cancha de césped sintético con rayas y líneas blancas, rodeada de bosque",
       "width": 1080,
       "height": 1440,
       "anchos": [
@@ -614,32 +583,32 @@
       "avif": {
         "480": {
           "archivo": "cancha-480.avif",
-          "bytes": 30844,
+          "bytes": 35334,
           "calidad": 50
         },
         "720": {
           "archivo": "cancha-720.avif",
-          "bytes": 70727,
+          "bytes": 71894,
           "calidad": 50
         },
         "1080": {
           "archivo": "cancha-1080.avif",
-          "bytes": 158905,
+          "bytes": 124852,
           "calidad": 50
         }
       },
       "webp": {
         "480": {
           "archivo": "cancha-480.webp",
-          "bytes": 54900
+          "bytes": 61634
         },
         "720": {
           "archivo": "cancha-720.webp",
-          "bytes": 127032
+          "bytes": 118310
         },
         "1080": {
           "archivo": "cancha-1080.webp",
-          "bytes": 285792
+          "bytes": 194876
         }
       }
     },
@@ -726,6 +695,519 @@
         "1080": {
           "archivo": "noche-1080.webp",
           "bytes": 59584
+        }
+      }
+    },
+    "luna-p01": {
+      "momento": "10:30",
+      "tipo": "foto",
+      "alt": "Una mujer de la familia apoyada en el borde de la piscina natural, con Luna recostada a su lado sobre la piedra y la caída de agua detrás",
+      "width": 1080,
+      "height": 1350,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "luna-p01-480.avif",
+          "bytes": 33150,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "luna-p01-720.avif",
+          "bytes": 64301,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "luna-p01-1080.avif",
+          "bytes": 119660,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "luna-p01-480.webp",
+          "bytes": 57570
+        },
+        "720": {
+          "archivo": "luna-p01-720.webp",
+          "bytes": 107692
+        },
+        "1080": {
+          "archivo": "luna-p01-1080.webp",
+          "bytes": 195202
+        }
+      }
+    },
+    "luna-p02": {
+      "momento": "10:30",
+      "tipo": "foto",
+      "alt": "Un hombre de la familia abraza a Luna, recostada en el borde de piedra de la piscina natural, con la caída de agua detrás",
+      "width": 1080,
+      "height": 1350,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "luna-p02-480.avif",
+          "bytes": 34425,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "luna-p02-720.avif",
+          "bytes": 66132,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "luna-p02-1080.avif",
+          "bytes": 121566,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "luna-p02-480.webp",
+          "bytes": 61094
+        },
+        "720": {
+          "archivo": "luna-p02-720.webp",
+          "bytes": 114488
+        },
+        "1080": {
+          "archivo": "luna-p02-1080.webp",
+          "bytes": 206576
+        }
+      }
+    },
+    "luna-mimos": {
+      "momento": "10:30",
+      "tipo": "video",
+      "alt": "Una mujer de la familia acaricia a Luna, recostada sobre la piedra del borde de la piscina natural, con la caída de agua al fondo",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "poster": {
+        "avif": {
+          "480": {
+            "archivo": "luna-mimos-poster-480.avif",
+            "bytes": 49191,
+            "calidad": 50
+          },
+          "720": {
+            "archivo": "luna-mimos-poster-720.avif",
+            "bytes": 91225,
+            "calidad": 50
+          },
+          "1080": {
+            "archivo": "luna-mimos-poster-1080.avif",
+            "bytes": 151701,
+            "calidad": 50
+          }
+        },
+        "webp": {
+          "480": {
+            "archivo": "luna-mimos-poster-480.webp",
+            "bytes": 86144
+          },
+          "720": {
+            "archivo": "luna-mimos-poster-720.webp",
+            "bytes": 157676
+          },
+          "1080": {
+            "archivo": "luna-mimos-poster-1080.webp",
+            "bytes": 256806
+          }
+        }
+      },
+      "video": {
+        "width": 540,
+        "height": 960,
+        "fps": 24,
+        "duracion": 3.8,
+        "webm": {
+          "archivo": "luna-mimos.webm",
+          "bytes": 679328,
+          "crf": 34,
+          "kbps": 1026,
+          "duracion": 3.8
+        },
+        "mp4": {
+          "archivo": "luna-mimos.mp4",
+          "bytes": 552966,
+          "crf": 30,
+          "duracion": 3.8
+        }
+      }
+    },
+    "parque-ninos": {
+      "momento": "14:00",
+      "tipo": "cuadro",
+      "alt": "Parque acuático con estructura de juegos y toboganes de colores sobre una piscina baja, con un chico jugando en el agua y el bosque detrás",
+      "width": 1080,
+      "height": 1440,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "parque-ninos-480.avif",
+          "bytes": 34549,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "parque-ninos-720.avif",
+          "bytes": 63101,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "parque-ninos-1080.avif",
+          "bytes": 105383,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "parque-ninos-480.webp",
+          "bytes": 58302
+        },
+        "720": {
+          "archivo": "parque-ninos-720.webp",
+          "bytes": 107180
+        },
+        "1080": {
+          "archivo": "parque-ninos-1080.webp",
+          "bytes": 173408
+        }
+      }
+    },
+    "adultos-descansan": {
+      "momento": "14:00",
+      "tipo": "cuadro",
+      "alt": "Adultos descansando en reposeras blancas bajo una sombrilla, sobre el césped, junto a la piscina",
+      "width": 720,
+      "height": 960,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "adultos-descansan-480.avif",
+          "bytes": 20436,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "adultos-descansan-720.avif",
+          "bytes": 31581,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "adultos-descansan-480.webp",
+          "bytes": 28804
+        },
+        "720": {
+          "archivo": "adultos-descansan-720.webp",
+          "bytes": 46990
+        }
+      }
+    },
+    "vive-bano": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "Una mujer de la familia se baña en la piscina natural, frente a la caída de piedra",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-bano-480.avif",
+          "bytes": 31164,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-bano-720.avif",
+          "bytes": 57366,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-bano-480.webp",
+          "bytes": 54118
+        },
+        "720": {
+          "archivo": "vive-bano-720.webp",
+          "bytes": 96528
+        }
+      }
+    },
+    "vive-puente": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "El puente colgante visto desde su inicio, con el piso rojizo que se adentra en la selva",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-puente-480.avif",
+          "bytes": 48623,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-puente-720.avif",
+          "bytes": 85376,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-puente-480.webp",
+          "bytes": 86928
+        },
+        "720": {
+          "archivo": "vive-puente-720.webp",
+          "bytes": 158456
+        }
+      }
+    },
+    "vive-poza": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "Piscina natural redonda con flores rojas en la orilla y una caída de piedra al fondo",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-poza-480.avif",
+          "bytes": 37860,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-poza-720.avif",
+          "bytes": 70196,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-poza-480.webp",
+          "bytes": 64014
+        },
+        "720": {
+          "archivo": "vive-poza-720.webp",
+          "bytes": 119354
+        }
+      }
+    },
+    "vive-salto": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "Primer plano de la cascada cayendo sobre la roca, con espuma blanca",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-salto-480.avif",
+          "bytes": 33589,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-salto-720.avif",
+          "bytes": 61733,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-salto-480.webp",
+          "bytes": 56624
+        },
+        "720": {
+          "archivo": "vive-salto-720.webp",
+          "bytes": 100602
+        }
+      }
+    },
+    "vive-mirador": {
+      "momento": "galeria",
+      "tipo": "foto",
+      "alt": "Baranda de ramas junto al césped, con los cerros verdes del valle al fondo",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-mirador-480.avif",
+          "bytes": 30307,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-mirador-720.avif",
+          "bytes": 68718,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-mirador-480.webp",
+          "bytes": 54088
+        },
+        "720": {
+          "archivo": "vive-mirador-720.webp",
+          "bytes": 122526
+        }
+      }
+    },
+    "vive-piscina": {
+      "momento": "galeria",
+      "tipo": "foto",
+      "alt": "Piscina azul de borde sinuoso rodeada de césped, con reposeras y el bosque detrás",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-piscina-480.avif",
+          "bytes": 28867,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-piscina-720.avif",
+          "bytes": 61349,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-piscina-480.webp",
+          "bytes": 47580
+        },
+        "720": {
+          "archivo": "vive-piscina-720.webp",
+          "bytes": 101116
+        }
+      }
+    },
+    "vive-espiral": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "Tobogán azul en espiral sobre una piscina redonda, con el cerro verde detrás",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-espiral-480.avif",
+          "bytes": 30186,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-espiral-720.avif",
+          "bytes": 63042,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-espiral-480.webp",
+          "bytes": 53048
+        },
+        "720": {
+          "archivo": "vive-espiral-720.webp",
+          "bytes": 111518
+        }
+      }
+    },
+    "vive-flor": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "Flor rosada entre hojas grandes, a la orilla del sendero",
+      "width": 720,
+      "height": 900,
+      "anchos": [
+        480,
+        720
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-flor-480.avif",
+          "bytes": 30494,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "vive-flor-720.avif",
+          "bytes": 53076,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-flor-480.webp",
+          "bytes": 49932
+        },
+        "720": {
+          "archivo": "vive-flor-720.webp",
+          "bytes": 83554
+        }
+      }
+    },
+    "vive-rio": {
+      "momento": "galeria",
+      "tipo": "cuadro",
+      "alt": "Un perro blanco en la orilla de piedra, frente al río, entre el bosque",
+      "width": 480,
+      "height": 600,
+      "anchos": [
+        480
+      ],
+      "avif": {
+        "480": {
+          "archivo": "vive-rio-480.avif",
+          "bytes": 45591,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "vive-rio-480.webp",
+          "bytes": 86460
         }
       }
     }

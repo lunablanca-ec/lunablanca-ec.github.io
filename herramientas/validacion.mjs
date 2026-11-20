@@ -3,7 +3,7 @@
 import { esFechaISO } from '../src/js/logica.mjs';
 
 /** Marcadores que la plantilla llena desde precios, apertura y la fecha del build. */
-export const MARCADORES = ['adulto', 'nino', 'ninoDesde', 'ninoHasta', 'gratisMenorDe', 'maxPersonas', 'sello', 'anio'];
+export const MARCADORES = ['adulto', 'nino', 'ninoDesde', 'ninoHasta', 'gratisMenorDe', 'maxPersonas', 'sello', 'anio', 'regularAdulto', 'regularNino'];
 
 const esTexto = (v) => typeof v === 'string' && v.trim() !== '';
 const esNumPositivo = (v) => typeof v === 'number' && Number.isFinite(v) && v > 0;
@@ -31,10 +31,13 @@ export function validarSitio(s) {
   exige(esEntero(p.maxPersonas) && p.maxPersonas >= 1, 'precios.maxPersonas debe ser un entero de 1 o más');
   exige(esEntero(p.minAdultos) && p.minAdultos >= 1 && p.minAdultos <= p.maxPersonas, 'precios.minAdultos debe ser un entero de 1 hasta maxPersonas');
   exige(esTexto(p.moneda), 'precios.moneda no puede estar vacío');
+  exige(esNumPositivo(p.adultoRegular) && p.adultoRegular > p.adulto, 'precios.adultoRegular (precio regular tachado) debe ser un número mayor que precios.adulto');
+  exige(esNumPositivo(p.ninoRegular) && p.ninoRegular > p.nino, 'precios.ninoRegular (precio regular tachado) debe ser un número mayor que precios.nino');
 
   const a = o(apertura);
   exige(esTexto(a.selloTexto), 'apertura.selloTexto no puede estar vacío');
   exige(esTexto(a.selloCorto), 'apertura.selloCorto no puede estar vacío');
+  exige(esTexto(a.regularAntes), 'apertura.regularAntes no puede estar vacío (lo lee el lector de pantalla junto al precio tachado)');
   exige(esFechaISO(a.hasta), 'apertura.hasta debe ser una fecha real con formato AAAA-MM-DD');
   exige(/^[+-]\d{2}:\d{2}$/.test(a.zonaHoraria || ''), 'apertura.zonaHoraria debe verse como -05:00');
 
@@ -68,6 +71,8 @@ export function validarSitio(s) {
   'cada elemento de textos.momentos necesita id (m-HHMM), hora, etiqueta, titulo, texto y medios');
   exige(Array.isArray(t.preguntas) && t.preguntas.length > 0 && t.preguntas.every((x) => esTexto(o(x).p) && Array.isArray(x.r) && x.r.length > 0 && x.r.every(esTexto)),
     'cada elemento de textos.preguntas necesita p y r (lista de párrafos)');
+  textosDe(t.galeria, ['titulo'], 'textos.galeria');
+  exige(Array.isArray(o(t.galeria).medios) && t.galeria.medios.length >= 1 && t.galeria.medios.length <= 9 && t.galeria.medios.every(esTexto), 'textos.galeria.medios debe ser una lista de 1 a 9 identificadores de medio');
   const c = o(t.calculadora);
   textosDe(c, ['titulo', 'intro', 'fecha', 'franja', 'franjaNota', 'totalEtiqueta', 'vistaPrevia', 'boton', 'bajoBoton'], 'textos.calculadora');
   for (const k of ['adultos', 'ninos', 'menores']) textosDe(c[k], ['nombre', 'nota', 'quitar', 'sumar'], `textos.calculadora.${k}`);

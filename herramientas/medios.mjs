@@ -1,6 +1,8 @@
 // Procesa en local el crudo de LunaBlanca y deja en src/ solo lo optimizado.
 //   npm run medios                      -> todo
 //   npm run medios -- --solo=cascada    -> solo un id (imagenes y videos); --solo=og o --solo=marca
+//   npm run medios -- --solo=a,b,c      -> varios ids
+// Cada item puede traer "anchos" propios y un "ajuste" suave de color {brillo, saturacion, contraste}.
 //   MATERIAL_DIR=../otra/ruta npm run medios
 // Requiere ffmpeg/ffprobe del sistema. El crudo nunca se copia al repo: sharp y ffmpeg
 // exportan SIN metadatos (ni EXIF ni GPS). Lee herramientas/seleccion.json.
@@ -25,6 +27,7 @@ const HOJAS = path.join(RAIZ, 'docs', 'medios-revision');
 const TMP = path.join(os.tmpdir(), 'lunablanca-medios');
 const sel = JSON.parse(await fs.readFile(path.join(RAIZ, 'herramientas', 'seleccion.json'), 'utf8'));
 const solo = (process.argv.find((a) => a.startsWith('--solo=')) || '').slice(7) || null;
+const soloIds = solo ? solo.split(',') : null;
 
 sharp.cache(false);
 sharp.concurrency(2);
@@ -78,7 +81,13 @@ async function imagenBase(it) {
 async function exportarImagen(buf, recorte, base, anchos, opciones = {}) {
   const meta = await sharp(buf).metadata();
   const c = calcularRecorte(meta.width, meta.height, recorte);
-  const recortada = await sharp(buf).extract(c).png({ compressionLevel: 1 }).toBuffer();
+  let recortada = await sharp(buf).extract(c).png({ compressionLevel: 1 }).toBuffer();
+  if (opciones.ajuste) {
+    // Grading suave (toma debil): brillo, saturacion y contraste. Nunca cambia el tono del verde ni del agua.
+    const { brillo = 1, saturacion = 1, contraste = 1 } = opciones.ajuste;
+    recortada = await sharp(recortada).modulate({ brightness: brillo, saturation: saturacion })
+      .linear(contraste, 128 * (1 - contraste)).png({ compressionLevel: 1 }).toBuffer();
+  }
   const salidas = { avif: {}, webp: {} };
   let anchoMax = 0, altoMax = 0;
   for (const w of anchos) {
@@ -154,7 +163,7 @@ let manifiesto = { items: {} };
 try { manifiesto = JSON.parse(await fs.readFile(manifiestoRuta, 'utf8')); } catch { /* primera vez */ }
 manifiesto.items ??= {};
 
-const items = sel.items.filter((i) => !solo || i.id === solo);
+const items = sel.items.filter((i) => !soloIds || soloIds.includes(i.id));
 let videos = 0;
 for (const it of items) {
   console.log(`> ${it.id} (${it.tipo})`);
@@ -170,7 +179,7 @@ for (const it of items) {
       poster: { avif: img.salidas.avif, webp: img.salidas.webp },
       video: { width: 540, height: 960, fps: 24, duracion: v.webm.duracion, webm: v.webm, mp4: v.mp4 } });
   } else {
-    const img = await exportarImagen(buf, it.recorte, it.id, sel.anchos);
+    const img = await exportarImagen(buf, it.recorte, it.id, it.anchos ?? sel.anchos, { ajuste: it.ajuste });
     Object.assign(entrada, { width: img.width, height: img.height, anchos: img.anchos, avif: img.salidas.avif, webp: img.salidas.webp });
   }
   manifiesto.items[it.id] = entrada;

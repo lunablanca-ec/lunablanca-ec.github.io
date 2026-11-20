@@ -15,7 +15,9 @@
   "precios": {
     "moneda": "USD",
     "adulto": 15,
+    "adultoRegular": 20,
     "nino": 7.5,
+    "ninoRegular": 10,
     "ninoEdad": [
       5,
       12
@@ -28,7 +30,8 @@
     "selloTexto": "Precio de apertura · hasta el 31 de diciembre",
     "hasta": "2026-12-31",
     "zonaHoraria": "-05:00",
-    "selloCorto": "Precio de apertura"
+    "selloCorto": "Precio de apertura",
+    "regularAntes": "antes"
   },
   "reserva": {
     "whatsapp": "593978861426",
@@ -47,7 +50,7 @@
   "redes": {
     "instagram": "https://www.instagram.com/lunablanca.ecuador/",
     "tiktok": "https://www.tiktok.com/@lunablanca.ecuador",
-    "maps": "https://www.google.com/maps/search/?api=1&query=LunaBlanca%20Puerto%20Quito"
+    "maps": "https://maps.app.goo.gl/kMJ9WTQH3uZZ9Ke1A"
   },
   "medicion": {
     "ga4Id": "",
@@ -57,14 +60,14 @@
     "hero": {
       "etiqueta": "8:00 · Puerto Quito",
       "titulo": "Un día para desconectar con tu gente",
-      "linea": "Día LunaBlanca: un día privado para tu grupo, en la naturaleza de Puerto Quito, a poco más de dos horas de Quito.",
+      "linea": "Día LunaBlanca: un día privado para tu grupo, en la naturaleza de Puerto Quito, a unas dos horas y media de Quito.",
       "pista": "Baja y empieza el día"
     },
     "resumen": {
       "titulo": "Qué incluye tu día",
       "grupo": "Hasta {maxPersonas} personas por grupo · todos los días, con reserva, de 8 de la mañana a 8 de la noche",
-      "precio": "Día LunaBlanca, desde {adulto} por persona",
-      "precioNinos": "Niños de {ninoDesde} a {ninoHasta} años, {nino} · menores de {gratisMenorDe} no pagan",
+      "precio": "Día LunaBlanca, desde {regularAdulto}{adulto} por persona",
+      "precioNinos": "Niños de {ninoDesde} a {ninoHasta} años, {regularNino}{nino} · menores de {gratisMenorDe} no pagan",
       "boton": "Escríbenos y te contamos",
       "enlace": "Arma tu día y mira tu total"
     },
@@ -97,8 +100,13 @@
         "titulo": "Luna se queda en el borde",
         "texto": "Luna es la perrita de la familia. Tu perro también puede venir, con correa y a tu cuidado. Te acompaña junto a la piscina natural, sin entrar al agua.",
         "medios": [
-          "luna-video"
-        ]
+          "luna-video",
+          "luna-p01",
+          "luna-p02",
+          "luna-mimos"
+        ],
+        "lineaFotos": "Y cuando alguien se acerca, Luna se deja querer.",
+        "lineaClip": "Un poco de agua fresca y mimos de la familia."
       },
       {
         "id": "m-1200",
@@ -121,7 +129,14 @@
         "titulo": "Ellos se divierten, tú descansas",
         "texto": "Toboganes y parque acuático, sin costo extra. Los chicos se divierten, tú descansas, en un lugar privado y seguro, con guardianía las 24 horas.",
         "medios": [
-          "tobogan"
+          "tobogan",
+          "parque-ninos",
+          "adultos-descansan"
+        ],
+        "rotulos": [
+          "El tobogán",
+          "El parque acuático",
+          "Y tú, a descansar"
         ]
       },
       {
@@ -185,13 +200,13 @@
       "intro": "Dinos quiénes vienen y qué día. Te dejamos el mensaje listo para WhatsApp, y por ahí te confirmamos la fecha y el pago.",
       "adultos": {
         "nombre": "Adultos",
-        "nota": "13 años o más · {adulto} por persona",
+        "nota": "13 años o más · {regularAdulto}{adulto} por persona",
         "quitar": "Quitar un adulto",
         "sumar": "Sumar un adulto"
       },
       "ninos": {
         "nombre": "Niños",
-        "nota": "De {ninoDesde} a {ninoHasta} años · {nino} por persona",
+        "nota": "De {ninoDesde} a {ninoHasta} años · {regularNino}{nino} por persona",
         "quitar": "Quitar un niño",
         "sumar": "Sumar un niño"
       },
@@ -256,7 +271,7 @@
       {
         "p": "¿Cuánto pago por mi grupo?",
         "r": [
-          "Adultos, {adulto} por persona. Niños de {ninoDesde} a {ninoHasta} años, {nino}, y menores de {gratisMenorDe} no pagan. El grupo puede ser de hasta {maxPersonas} personas. {sello}",
+          "Adultos, {regularAdulto}{adulto} por persona. Niños de {ninoDesde} a {ninoHasta} años, {regularNino}{nino}, y menores de {gratisMenorDe} no pagan. El grupo puede ser de hasta {maxPersonas} personas. {sello}",
           "En Arma tu día ves el total de tu grupo."
         ]
       },
@@ -278,14 +293,14 @@
         "r": [
           "Escríbenos por WhatsApp con la fecha y cuántos vienen. Abrimos todos los días, también en feriados, siempre con reserva, y puedes disfrutar las áreas de 8 de la mañana a 8 de la noche.",
           "Pagas el valor completo antes de ingresar, por transferencia o con tarjeta de crédito; si prefieres tarjeta, te enviamos un enlace de pago por WhatsApp. Puedes cambiar la fecha avisando con dos días de anticipación.",
-          "Estamos en Puerto Quito, a poco más de dos horas de Quito. Al reservar te enviamos un código QR: cuando llegues, lo presentas en la garita junto con el nombre de la reserva. Cada área tiene su parqueadero.",
+          "Estamos en Puerto Quito, a unas dos horas y media de Quito. Al reservar te enviamos un código QR: cuando llegues, lo presentas en la garita junto con el nombre de la reserva. Cada área tiene su parqueadero.",
           "¿Y si llueve? El día sigue: puedes seguir usando las áreas. Si la lluvia es fuerte, te recomendamos salir de la zona del río."
         ]
       }
     ],
     "pie": {
       "lema": "Tu refugio en la naturaleza",
-      "lugar": "Puerto Quito, Pichincha · a poco más de dos horas de Quito",
+      "lugar": "Puerto Quito, Pichincha · a unas dos horas y media de Quito",
       "horario": "Todos los días, con reserva, de 8 de la mañana a 8 de la noche.",
       "boton": "Escríbenos y te contamos",
       "enlaces": {
@@ -299,7 +314,7 @@
     "flotante": "Arma tu día",
     "saltar": "Saltar a Arma tu día",
     "meta": {
-      "titulo": "Día LunaBlanca · Puerto Quito, a poco más de dos horas de Quito",
+      "titulo": "Día LunaBlanca · Puerto Quito, a unas dos horas y media de Quito",
       "descripcion": "Un día privado para tu grupo en Puerto Quito: piscina natural, cascada, río Caoní, toboganes, sauna y zona BBQ. Hasta {maxPersonas} personas, todos los días con reserva.",
       "ogTitulo": "Un día en LunaBlanca"
     },
@@ -310,6 +325,20 @@
     "noEncontrada": {
       "titulo": "No encontramos esta página",
       "enlace": "Volver al inicio"
+    },
+    "galeria": {
+      "titulo": "Así se vive",
+      "medios": [
+        "vive-bano",
+        "vive-puente",
+        "vive-poza",
+        "vive-salto",
+        "vive-mirador",
+        "vive-piscina",
+        "vive-espiral",
+        "vive-flor",
+        "vive-rio"
+      ]
     }
   }
 }

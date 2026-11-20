@@ -37,7 +37,9 @@ test('build con FECHA_SIMULADA: sello el 2026-12-31, sin sello el 2027-01-01, mi
   assert.match(visible.html, /data-sello/);
   assert.doesNotMatch(oculto.html, /data-sello/);
   assert.ok(!oculto.html.includes(apertura.selloTexto));
-  const precio = (h) => [...h.matchAll(/data-precio[^>]*>([^<]*)</g)].map((m) => m[1]).join('|');
+  // Texto de las líneas de precio sin el tachado (que lleva data-sello y solo existe con el sello).
+  const precio = (h) => [...h.matchAll(/data-precio[^>]*>(.*?)<\/p>/g)]
+    .map((m) => m[1].replace(/<s class="regular"[^>]*>.*?<\/s>\s?/g, '').replace(/<[^>]+>/g, '')).join('|');
   assert.equal(precio(visible.html), precio(oculto.html));
   assert.match(visible.html, /\$15/);
   assert.match(oculto.html, /\$7,50/);
