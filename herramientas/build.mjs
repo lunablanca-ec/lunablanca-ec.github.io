@@ -1,7 +1,7 @@
 // Build: valida sitio.json -> renderiza -> lint de palabras -> minifica y hashea -> dist/.
 // Si algo falla, termina con código 1 y un mensaje en español: la versión publicada no cambia.
 import {
-  readFileSync, writeFileSync, existsSync, mkdirSync, rmSync, cpSync, readdirSync,
+  readFileSync, writeFileSync, existsSync, mkdirSync, rmSync, cpSync, readdirSync, copyFileSync,
 } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { gzipSync } from 'node:zlib';
@@ -104,6 +104,7 @@ export function construir() {
   writeFileSync(join(dist, 'index.html'), html);
   writeFileSync(join(dist, '404.html'), html404);
   writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${url}/sitemap.xml\n`);
+  if (existsSync(join(SRC, 'marca', 'icono-192.png'))) copyFileSync(join(SRC, 'marca', 'icono-192.png'), join(dist, 'favicon.ico'));
   writeFileSync(join(dist, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${url}/</loc><lastmod>${hoy}</lastmod></url>\n</urlset>\n`);
 
