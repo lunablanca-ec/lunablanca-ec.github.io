@@ -1,0 +1,106 @@
+/* LunaBlanca · tokens (dirección T2). Ningún color ni tipografía fuera de esta lista. */
+:root {
+  --verde: #1A3A2E;
+  --crema: #F4EDE2;
+  --carbon: #2C2C2A;
+  --ambar: #E39A3B;
+  --ambar-hondo: #8F5210;
+  --agua: #7E8A64;
+  --agua-honda: #5C6B47;
+  --crema-suave: #C8C9BE; /* crema 80 % + verde 20 %: texto secundario de la noche */
+
+  /* Cinco capas de cielo: JS solo cambia su opacity */
+  --cielo-amanecer: linear-gradient(180deg, #F2E1CB 0%, #F4EDE2 62%);
+  --cielo-manana: linear-gradient(180deg, #F4EDE2 0%, #EBE5D8 100%);
+  --cielo-mediodia: linear-gradient(180deg, #EFE9DD 0%, #F4EDE2 100%);
+  --cielo-tarde: linear-gradient(180deg, #F1DEC4 0%, #F3E8D8 100%);
+  --cielo-noche: linear-gradient(180deg, #1D382D 0%, #1A3A2E 70%);
+
+  --f-titulo: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --f-texto: "Jost", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+
+  --t-hora: clamp(4.5rem, 23vw, 9rem);
+  --t-h1: clamp(2.5rem, 11vw, 5rem);
+  --t-h2: clamp(2rem, 8.6vw, 3.5rem);
+  --t-h2-resumen: clamp(1.75rem, 7.6vw, 2.75rem);
+  --t-total: clamp(3.5rem, 17vw, 5.5rem);
+  --t-cuerpo: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --t-lista: 1rem;
+  --t-chico: 0.875rem;
+  --t-etiqueta: 0.75rem;
+  --t-boton: 1rem;
+  --medida: 34ch;
+
+  --e-1: 0.5rem;
+  --e-2: 1rem;
+  --e-3: 1.5rem;
+  --e-4: 2.5rem;
+  --e-5: 4rem;
+  --e-6: 7rem;
+  --margen: 1.25rem;
+  --respiro: 34svh;
+  --alto-medio: 86svh;
+  --crepusculo: 70svh;
+
+  --ease-calma: cubic-bezier(.22, .61, .36, 1);
+  --ease-salida: cubic-bezier(.4, 0, .2, 1);
+  --dur-tokens: 600ms;
+  --dur-texto: 900ms;
+  --escalon-texto: 140ms;
+  --dur-total: 420ms;
+  --dur-luna: 1200ms;
+  --dur-parpadeo: 220ms;
+
+  /* Velo bajo el texto sobre foto: estático, nunca animado */
+  --velo: linear-gradient(to top, rgb(26 58 46 / .90) 0%, rgb(26 58 46 / .82) calc(100% - 7rem), rgb(26 58 46 / 0) 100%);
+  --velo-logo: linear-gradient(to bottom, rgb(26 58 46 / .7), rgb(26 58 46 / 0)); /* .7 y no .55: el logo crema se perdía sobre el follaje claro */
+
+  --radio-marco: 3px;
+  --astro: 56px; /* ancho del símbolo; el punto mide 12 px a este tamaño */
+}
+
+@media (min-width: 900px) {
+  :root { --margen: 6vw; --astro: 72px; --respiro: 0; }
+}
+
+body[data-momento="amanecer"], body[data-momento="manana"],
+body[data-momento="mediodia"], body[data-momento="tarde"] {
+  --fondo: var(--crema);
+  --texto: var(--verde);
+  --texto-2: var(--carbon);
+  --acento: var(--ambar-hondo);
+  --boton-fondo: var(--verde);
+  --boton-texto: var(--crema);
+  --foco: var(--ambar-hondo);
+  --linea: rgb(26 58 46 / .18);
+}
+
+body[data-momento="noche"] {
+  --fondo: var(--verde);
+  --texto: var(--crema);
+  --texto-2: var(--crema-suave);
+  --acento: var(--ambar);
+  --boton-fondo: var(--ambar);
+  --boton-texto: var(--verde);
+  --foco: var(--ambar);
+  --linea: rgb(244 237 226 / .2);
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  transition: color var(--dur-tokens) var(--ease-calma), background-color var(--dur-tokens) var(--ease-calma);
+}
+
+/* Texto sobre foto (solo móvil): crema, sin ámbar. En escritorio el texto va sobre el cielo. */
+@media (max-width: 899.98px) {
+  .sobre-medio {
+    --texto: var(--crema);
+    --texto-2: var(--crema);
+    --acento: var(--crema);
+    --foco: var(--crema);
+    color: var(--crema);
+  }
+}
+
+:focus-visible { outline: 2px solid var(--foco); outline-offset: 3px; border-radius: 2px; }

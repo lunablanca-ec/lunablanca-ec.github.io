@@ -1,0 +1,749 @@
+{
+  "items": {
+    "piscina-natural": {
+      "momento": "8:00 hero",
+      "tipo": "video",
+      "alt": "Piscina natural de agua verde con una caída de agua sobre una roca de piedra, rodeada de vegetación",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "poster": {
+        "avif": {
+          "480": {
+            "archivo": "piscina-natural-poster-480.avif",
+            "bytes": 55921,
+            "calidad": 50
+          },
+          "720": {
+            "archivo": "piscina-natural-poster-720.avif",
+            "bytes": 101833,
+            "calidad": 50
+          },
+          "1080": {
+            "archivo": "piscina-natural-poster-1080.avif",
+            "bytes": 166057,
+            "calidad": 50
+          }
+        },
+        "webp": {
+          "480": {
+            "archivo": "piscina-natural-poster-480.webp",
+            "bytes": 99586
+          },
+          "720": {
+            "archivo": "piscina-natural-poster-720.webp",
+            "bytes": 180822
+          },
+          "1080": {
+            "archivo": "piscina-natural-poster-1080.webp",
+            "bytes": 294302
+          }
+        }
+      },
+      "video": {
+        "width": 540,
+        "height": 960,
+        "fps": 24,
+        "duracion": 7,
+        "webm": {
+          "archivo": "piscina-natural.webm",
+          "bytes": 629856,
+          "crf": 34,
+          "kbps": 490,
+          "duracion": 7
+        },
+        "mp4": {
+          "archivo": "piscina-natural.mp4",
+          "bytes": 480418,
+          "crf": 36,
+          "duracion": 7
+        }
+      }
+    },
+    "sendero": {
+      "momento": "9:00",
+      "tipo": "cuadro",
+      "alt": "Sendero de cemento con pasamanos de troncos que baja entre la vegetación hacia la cascada",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "sendero-480.avif",
+          "bytes": 41087,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "sendero-720.avif",
+          "bytes": 74675,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "sendero-1080.avif",
+          "bytes": 123473,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "sendero-480.webp",
+          "bytes": 67574
+        },
+        "720": {
+          "archivo": "sendero-720.webp",
+          "bytes": 117572
+        },
+        "1080": {
+          "archivo": "sendero-1080.webp",
+          "bytes": 185334
+        }
+      }
+    },
+    "cascada": {
+      "momento": "9:00",
+      "tipo": "video",
+      "alt": "Cascada pequeña que cae sobre rocas hacia una poza, entre palmas y selva",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "poster": {
+        "avif": {
+          "480": {
+            "archivo": "cascada-poster-480.avif",
+            "bytes": 47234,
+            "calidad": 50
+          },
+          "720": {
+            "archivo": "cascada-poster-720.avif",
+            "bytes": 89493,
+            "calidad": 50
+          },
+          "1080": {
+            "archivo": "cascada-poster-1080.avif",
+            "bytes": 150641,
+            "calidad": 50
+          }
+        },
+        "webp": {
+          "480": {
+            "archivo": "cascada-poster-480.webp",
+            "bytes": 81222
+          },
+          "720": {
+            "archivo": "cascada-poster-720.webp",
+            "bytes": 147682
+          },
+          "1080": {
+            "archivo": "cascada-poster-1080.webp",
+            "bytes": 238280
+          }
+        }
+      },
+      "video": {
+        "width": 540,
+        "height": 960,
+        "fps": 24,
+        "duracion": 6.5,
+        "webm": {
+          "archivo": "cascada.webm",
+          "bytes": 690877,
+          "crf": 34,
+          "kbps": 600,
+          "duracion": 6.5
+        },
+        "mp4": {
+          "archivo": "cascada.mp4",
+          "bytes": 596978,
+          "crf": 32,
+          "duracion": 6.5
+        }
+      }
+    },
+    "luna-borde": {
+      "momento": "10:30 y og",
+      "tipo": "foto",
+      "alt": "Luna, una perra negra con pecho blanco, recostada junto al borde de la piscina natural; detrás, la caída de piedra y la vegetación",
+      "width": 1080,
+      "height": 1440,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "luna-borde-480.avif",
+          "bytes": 40304,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "luna-borde-720.avif",
+          "bytes": 81060,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "luna-borde-1080.avif",
+          "bytes": 154745,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "luna-borde-480.webp",
+          "bytes": 70330
+        },
+        "720": {
+          "archivo": "luna-borde-720.webp",
+          "bytes": 140408
+        },
+        "1080": {
+          "archivo": "luna-borde-1080.webp",
+          "bytes": 267180
+        }
+      }
+    },
+    "luna-video": {
+      "momento": "10:30",
+      "tipo": "video",
+      "alt": "Luna recostada y tranquila junto a la piscina natural, con la lengua afuera, frente a una caída de piedra",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "poster": {
+        "avif": {
+          "480": {
+            "archivo": "luna-video-poster-480.avif",
+            "bytes": 45823,
+            "calidad": 50
+          },
+          "720": {
+            "archivo": "luna-video-poster-720.avif",
+            "bytes": 80891,
+            "calidad": 50
+          },
+          "1080": {
+            "archivo": "luna-video-poster-1080.avif",
+            "bytes": 131595,
+            "calidad": 50
+          }
+        },
+        "webp": {
+          "480": {
+            "archivo": "luna-video-poster-480.webp",
+            "bytes": 78956
+          },
+          "720": {
+            "archivo": "luna-video-poster-720.webp",
+            "bytes": 134560
+          },
+          "1080": {
+            "archivo": "luna-video-poster-1080.webp",
+            "bytes": 213476
+          }
+        }
+      },
+      "video": {
+        "width": 540,
+        "height": 960,
+        "fps": 24,
+        "duracion": 7,
+        "webm": {
+          "archivo": "luna-video.webm",
+          "bytes": 669450,
+          "crf": 34,
+          "kbps": 557,
+          "duracion": 7
+        },
+        "mp4": {
+          "archivo": "luna-video.mp4",
+          "bytes": 564938,
+          "crf": 34,
+          "duracion": 7
+        }
+      }
+    },
+    "piscina-reservada": {
+      "momento": "12:00",
+      "tipo": "foto",
+      "alt": "Piscina artificial de borde sinuoso, vacía, con reposeras blancas y árboles al fondo",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "piscina-reservada-480.avif",
+          "bytes": 50576,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "piscina-reservada-720.avif",
+          "bytes": 106879,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "piscina-reservada-1080.avif",
+          "bytes": 203462,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "piscina-reservada-480.webp",
+          "bytes": 85642
+        },
+        "720": {
+          "archivo": "piscina-reservada-720.webp",
+          "bytes": 184504
+        },
+        "1080": {
+          "archivo": "piscina-reservada-1080.webp",
+          "bytes": 356294
+        }
+      }
+    },
+    "bbq": {
+      "momento": "12:00",
+      "tipo": "cuadro",
+      "alt": "Fila de kioscos techados con mesas de piedra y bancas para el grupo, entre el césped y los árboles",
+      "width": 1080,
+      "height": 1350,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "bbq-480.avif",
+          "bytes": 25255,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "bbq-720.avif",
+          "bytes": 51945,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "bbq-1080.avif",
+          "bytes": 94900,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "bbq-480.webp",
+          "bytes": 41686
+        },
+        "720": {
+          "archivo": "bbq-720.webp",
+          "bytes": 85180
+        },
+        "1080": {
+          "archivo": "bbq-1080.webp",
+          "bytes": 156006
+        }
+      }
+    },
+    "tobogan": {
+      "momento": "14:00",
+      "tipo": "video",
+      "alt": "Tobogán azul que sale del bosque hacia una piscina de agua celeste, junto a un tobogán de colores",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "poster": {
+        "avif": {
+          "480": {
+            "archivo": "tobogan-poster-480.avif",
+            "bytes": 37758,
+            "calidad": 50
+          },
+          "720": {
+            "archivo": "tobogan-poster-720.avif",
+            "bytes": 77081,
+            "calidad": 50
+          },
+          "1080": {
+            "archivo": "tobogan-poster-1080.avif",
+            "bytes": 144549,
+            "calidad": 50
+          }
+        },
+        "webp": {
+          "480": {
+            "archivo": "tobogan-poster-480.webp",
+            "bytes": 61152
+          },
+          "720": {
+            "archivo": "tobogan-poster-720.webp",
+            "bytes": 125406
+          },
+          "1080": {
+            "archivo": "tobogan-poster-1080.webp",
+            "bytes": 225876
+          }
+        }
+      },
+      "video": {
+        "width": 540,
+        "height": 960,
+        "fps": 24,
+        "duracion": 6.3,
+        "webm": {
+          "archivo": "tobogan.webm",
+          "bytes": 698706,
+          "crf": 34,
+          "kbps": 619,
+          "duracion": 6.3
+        },
+        "mp4": {
+          "archivo": "tobogan.mp4",
+          "bytes": 603501,
+          "crf": 32,
+          "duracion": 6.3
+        }
+      }
+    },
+    "puente": {
+      "momento": "15:30",
+      "tipo": "cuadro",
+      "alt": "Puente colgante con pórtico de troncos y piso de madera que se adentra en la selva",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "puente-480.avif",
+          "bytes": 53303,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "puente-720.avif",
+          "bytes": 94941,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "puente-1080.avif",
+          "bytes": 158125,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "puente-480.webp",
+          "bytes": 91988
+        },
+        "720": {
+          "archivo": "puente-720.webp",
+          "bytes": 164768
+        },
+        "1080": {
+          "archivo": "puente-1080.webp",
+          "bytes": 265728
+        }
+      }
+    },
+    "sauna": {
+      "momento": "17:00",
+      "tipo": "cuadro",
+      "alt": "Interior del sauna, con paredes y bancas de madera clara y una línea de luz cálida",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "sauna-480.avif",
+          "bytes": 13514,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "sauna-720.avif",
+          "bytes": 21288,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "sauna-1080.avif",
+          "bytes": 33683,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "sauna-480.webp",
+          "bytes": 16752
+        },
+        "720": {
+          "archivo": "sauna-720.webp",
+          "bytes": 26972
+        },
+        "1080": {
+          "archivo": "sauna-1080.webp",
+          "bytes": 44258
+        }
+      }
+    },
+    "turco": {
+      "momento": "17:00",
+      "tipo": "cuadro",
+      "alt": "Interior del baño turco, revestido de mosaico gris y blanco, con una banca y una ducha de mano",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "turco-480.avif",
+          "bytes": 43850,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "turco-720.avif",
+          "bytes": 79557,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "turco-1080.avif",
+          "bytes": 133441,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "turco-480.webp",
+          "bytes": 73848
+        },
+        "720": {
+          "archivo": "turco-720.webp",
+          "bytes": 127578
+        },
+        "1080": {
+          "archivo": "turco-1080.webp",
+          "bytes": 202108
+        }
+      }
+    },
+    "gimnasio": {
+      "momento": "17:00",
+      "tipo": "cuadro",
+      "alt": "Gimnasio con techo de vigas de madera, caminadora y bicicleta, y ventanales hacia el verde",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "gimnasio-480.avif",
+          "bytes": 24918,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "gimnasio-720.avif",
+          "bytes": 49784,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "gimnasio-1080.avif",
+          "bytes": 90999,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "gimnasio-480.webp",
+          "bytes": 36800
+        },
+        "720": {
+          "archivo": "gimnasio-720.webp",
+          "bytes": 70844
+        },
+        "1080": {
+          "archivo": "gimnasio-1080.webp",
+          "bytes": 124158
+        }
+      }
+    },
+    "cancha": {
+      "momento": "17:00",
+      "tipo": "foto",
+      "alt": "Cancha de césped sintético con líneas blancas, rodeada de bosque, con una gradería techada a un lado",
+      "width": 1080,
+      "height": 1440,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "cancha-480.avif",
+          "bytes": 30844,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "cancha-720.avif",
+          "bytes": 70727,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "cancha-1080.avif",
+          "bytes": 158905,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "cancha-480.webp",
+          "bytes": 54900
+        },
+        "720": {
+          "archivo": "cancha-720.webp",
+          "bytes": 127032
+        },
+        "1080": {
+          "archivo": "cancha-1080.webp",
+          "bytes": 285792
+        }
+      }
+    },
+    "tarde": {
+      "momento": "18:30",
+      "tipo": "cuadro",
+      "alt": "Luna descansando sola en el borde de la piscina natural, con la banca blanca y los árboles detrás",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "tarde-480.avif",
+          "bytes": 43575,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "tarde-720.avif",
+          "bytes": 80051,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "tarde-1080.avif",
+          "bytes": 134101,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "tarde-480.webp",
+          "bytes": 70478
+        },
+        "720": {
+          "archivo": "tarde-720.webp",
+          "bytes": 123696
+        },
+        "1080": {
+          "archivo": "tarde-1080.webp",
+          "bytes": 199022
+        }
+      }
+    },
+    "noche": {
+      "momento": "20:00",
+      "tipo": "foto",
+      "alt": "Luna durmiendo enroscada en el asiento trasero del auto, de regreso a casa",
+      "width": 1080,
+      "height": 972,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "noche-480.avif",
+          "bytes": 13479,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "noche-720.avif",
+          "bytes": 24212,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "noche-1080.avif",
+          "bytes": 41875,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "noche-480.webp",
+          "bytes": 20762
+        },
+        "720": {
+          "archivo": "noche-720.webp",
+          "bytes": 35782
+        },
+        "1080": {
+          "archivo": "noche-1080.webp",
+          "bytes": 59584
+        }
+      }
+    }
+  },
+  "og": {
+    "archivo": "og.jpg",
+    "width": 1200,
+    "height": 630,
+    "bytes": 129359
+  },
+  "marca": {
+    "logo-horizontal-fondo-claro.svg": 13243,
+    "logo-horizontal-fondo-oscuro.svg": 13243,
+    "simbolo-fondo-claro.svg": 200,
+    "simbolo-fondo-oscuro.svg": 200,
+    "icono-perfil-verde.svg": 297,
+    "sello-huella-crema.svg": 450,
+    "icono-192.png": 3781,
+    "icono-512.png": 9197
+  }
+}

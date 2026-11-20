@@ -1,0 +1,315 @@
+{
+  "sitio": {
+    "url": "https://lunablanca-ec.github.io",
+    "ogImagen": "medios/og.jpg"
+  },
+  "negocio": {
+    "nombre": "LunaBlanca",
+    "lema": "Tu refugio en la naturaleza",
+    "lugar": "Puerto Quito, Pichincha",
+    "localidad": "Puerto Quito",
+    "region": "Pichincha",
+    "pais": "EC",
+    "horario": "08:00-20:00"
+  },
+  "precios": {
+    "moneda": "USD",
+    "adulto": 15,
+    "nino": 7.5,
+    "ninoEdad": [
+      5,
+      12
+    ],
+    "gratisMenorDe": 5,
+    "maxPersonas": 10,
+    "minAdultos": 1
+  },
+  "apertura": {
+    "selloTexto": "Precio de apertura · hasta el 31 de diciembre",
+    "hasta": "2026-12-31",
+    "zonaHoraria": "-05:00",
+    "selloCorto": "Precio de apertura"
+  },
+  "reserva": {
+    "whatsapp": "593978861426",
+    "franjas": [
+      "En la mañana",
+      "Al mediodía",
+      "En la tarde"
+    ],
+    "notaApertura": "(precio de apertura)",
+    "mensajes": {
+      "principal": "Hola, vengo de la web y quiero conocer el Día LunaBlanca",
+      "calculadora": "Hola, vengo de la web. Armé mi día:",
+      "pie": "Hola, vengo de la web (pie de página) y tengo una pregunta"
+    }
+  },
+  "redes": {
+    "instagram": "https://www.instagram.com/lunablanca.ecuador/",
+    "tiktok": "https://www.tiktok.com/@lunablanca.ecuador",
+    "maps": "https://www.google.com/maps/search/?api=1&query=LunaBlanca%20Puerto%20Quito"
+  },
+  "medicion": {
+    "ga4Id": "",
+    "evento": "clic_whatsapp"
+  },
+  "textos": {
+    "hero": {
+      "etiqueta": "8:00 · Puerto Quito",
+      "titulo": "Un día para desconectar con tu gente",
+      "linea": "Día LunaBlanca: un día privado para tu grupo, en la naturaleza de Puerto Quito, a poco más de dos horas de Quito.",
+      "pista": "Baja y empieza el día"
+    },
+    "resumen": {
+      "titulo": "Qué incluye tu día",
+      "grupo": "Hasta {maxPersonas} personas por grupo · todos los días, con reserva, de 8 de la mañana a 8 de la noche",
+      "precio": "Día LunaBlanca, desde {adulto} por persona",
+      "precioNinos": "Niños de {ninoDesde} a {ninoHasta} años, {nino} · menores de {gratisMenorDe} no pagan",
+      "boton": "Escríbenos y te contamos",
+      "enlace": "Arma tu día y mira tu total"
+    },
+    "incluye": [
+      "Piscina y zona BBQ reservadas para tu grupo, en el horario que elijas",
+      "Piscina natural, cascada, río Caoní y senderos, áreas comunes de la urbanización",
+      "Toboganes y parque acuático para los chicos",
+      "Sauna, turco, gimnasio y canchas"
+    ],
+    "noIncluye": "No incluye: masajes (con cita previa, los fines de semana) ni lo que consumas en el restaurante y el bar.",
+    "momentos": [
+      {
+        "id": "m-0900",
+        "hora": "9:00",
+        "cielo": "amanecer",
+        "etiqueta": "Área común",
+        "titulo": "Bajas por el sendero",
+        "texto": "Pasamanos de madera, el bosque cerrado y un sonido que crece. Oyes la cascada antes de verla.",
+        "medios": [
+          "sendero",
+          "cascada"
+        ],
+        "lineaMedio2": "Y al final, la cascada."
+      },
+      {
+        "id": "m-1030",
+        "hora": "10:30",
+        "cielo": "manana",
+        "etiqueta": "Área común",
+        "titulo": "Luna se queda en el borde",
+        "texto": "Luna es la perrita de la familia. Tu perro también puede venir, con correa y a tu cuidado. Te acompaña junto a la piscina natural, sin entrar al agua.",
+        "medios": [
+          "luna-video"
+        ]
+      },
+      {
+        "id": "m-1200",
+        "hora": "12:00",
+        "cielo": "mediodia",
+        "etiqueta": "Para tu grupo",
+        "titulo": "La piscina y el BBQ, en tu horario",
+        "texto": "Al reservar eliges el horario de la piscina y de la zona BBQ, y quedan para tu grupo. Trae tu comida; la parrilla la pides ese día al personal.",
+        "nota": "La piscina que se reserva es una de las artificiales.",
+        "medios": [
+          "piscina-reservada",
+          "bbq"
+        ]
+      },
+      {
+        "id": "m-1400",
+        "hora": "14:00",
+        "cielo": "mediodia",
+        "etiqueta": "Incluido",
+        "titulo": "Ellos se divierten, tú descansas",
+        "texto": "Toboganes y parque acuático, sin costo extra. Los chicos se divierten, tú descansas, en un lugar privado y seguro, con guardianía las 24 horas.",
+        "medios": [
+          "tobogan"
+        ]
+      },
+      {
+        "id": "m-1530",
+        "hora": "15:30",
+        "cielo": "tarde",
+        "etiqueta": "Área común",
+        "titulo": "El puente y el río",
+        "texto": "Cruzas el puente colgante entre los árboles y sigues el sonido del agua hasta el río Caoní.",
+        "medios": [
+          "puente"
+        ]
+      },
+      {
+        "id": "m-1700",
+        "hora": "17:00",
+        "cielo": "tarde",
+        "etiqueta": "Incluido",
+        "titulo": "Cuando baja el sol",
+        "texto": "Sauna, turco, gimnasio y canchas, todos los días. Tu reserva te da acceso: solo pides al personal que te habilite el área.",
+        "medios": [
+          "sauna",
+          "turco",
+          "gimnasio",
+          "cancha"
+        ],
+        "rotulos": [
+          "Sauna",
+          "Turco",
+          "Gimnasio",
+          "Cancha"
+        ]
+      },
+      {
+        "id": "m-1830",
+        "hora": "18:30",
+        "cielo": "tarde",
+        "etiqueta": "Área común",
+        "titulo": "La tarde se apaga junto al agua",
+        "texto": "Un último rato en el borde de la piscina natural, sin apuro. Puedes quedarte hasta las 8 de la noche.",
+        "medios": [
+          "tarde"
+        ]
+      },
+      {
+        "id": "m-2000",
+        "hora": "20:00",
+        "cielo": "noche",
+        "etiqueta": "",
+        "titulo": "De regreso, Luna duerme",
+        "texto": "LunaBlanca nace de dos perros de la familia: Loky, blanco, y Luna, negra con manchas blancas. Los dos con los mismos ojos color ámbar. La luna es Luna; el blanco es Loky.",
+        "cierre": "Llegaste con el peso de la semana. Vuelves liviano.",
+        "lema": "Tu refugio en la naturaleza",
+        "medios": [
+          "noche"
+        ]
+      }
+    ],
+    "calculadora": {
+      "titulo": "Arma tu día",
+      "intro": "Dinos quiénes vienen y qué día. Te dejamos el mensaje listo para WhatsApp, y por ahí te confirmamos la fecha y el pago.",
+      "adultos": {
+        "nombre": "Adultos",
+        "nota": "13 años o más · {adulto} por persona",
+        "quitar": "Quitar un adulto",
+        "sumar": "Sumar un adulto"
+      },
+      "ninos": {
+        "nombre": "Niños",
+        "nota": "De {ninoDesde} a {ninoHasta} años · {nino} por persona",
+        "quitar": "Quitar un niño",
+        "sumar": "Sumar un niño"
+      },
+      "menores": {
+        "nombre": "Menores de {gratisMenorDe}",
+        "nota": "No pagan",
+        "quitar": "Quitar un menor de {gratisMenorDe}",
+        "sumar": "Sumar un menor de {gratisMenorDe}"
+      },
+      "inicial": {
+        "adultos": 2,
+        "ninos": 0,
+        "menores": 0
+      },
+      "fecha": "¿Qué día quieres venir?",
+      "franja": "¿Cuándo prefieres tu piscina y zona BBQ?",
+      "franjaNota": "Es tu preferencia; el horario te lo confirmamos por WhatsApp.",
+      "totalEtiqueta": "Total de tu grupo",
+      "vistaPrevia": "Así llega tu mensaje",
+      "boton": "Enviar mi día por WhatsApp",
+      "bajoBoton": "Se abre WhatsApp con tu mensaje listo. Aquí no se paga nada.",
+      "avisos": {
+        "maximo": "Cada grupo es de hasta {maxPersonas} personas.",
+        "minimoAdulto": "Los chicos vienen con al menos un adulto.",
+        "faltaFecha": "Elige el día para armar tu mensaje.",
+        "faltaFranja": "Elige cuándo prefieres la piscina y la zona BBQ.",
+        "fechaPasada": "Elige una fecha desde hoy."
+      },
+      "notaFecha": {
+        "finDeSemana": "Ese día abre el restaurante de la urbanización (se paga aparte) y hay masajes con cita previa. Si te interesan, dilo en tu mensaje.",
+        "entreSemana": "Entre semana, trae tu comida: el restaurante de la urbanización abre los fines de semana, y hay opciones a 7 minutos, hacia Puerto Quito."
+      },
+      "vacio": {
+        "fecha": "por elegir",
+        "franja": "por elegir"
+      },
+      "desglose": {
+        "adultos": [
+          "adulto",
+          "adultos"
+        ],
+        "ninos": [
+          "niño",
+          "niños"
+        ],
+        "menores": [
+          "menor de {gratisMenorDe}, gratis",
+          "menores de {gratisMenorDe}, gratis"
+        ]
+      }
+    },
+    "preguntasTitulo": "Antes de venir",
+    "preguntas": [
+      {
+        "p": "¿Qué incluye y qué no?",
+        "r": [
+          "Tu día incluye la piscina natural y la cascada, el río Caoní, los senderos, los toboganes y el parque acuático, sauna, turco, gimnasio y canchas.",
+          "La piscina y la zona BBQ se reservan para tu grupo en el horario que elijas; la piscina que se reserva es una de las artificiales. La piscina natural, la cascada y el río son áreas comunes. La parrilla la pides ese día al personal de administración.",
+          "No incluye los masajes (con cita previa, los fines de semana) ni lo que consumas en el restaurante y el bar: se pagan aparte."
+        ]
+      },
+      {
+        "p": "¿Cuánto pago por mi grupo?",
+        "r": [
+          "Adultos, {adulto} por persona. Niños de {ninoDesde} a {ninoHasta} años, {nino}, y menores de {gratisMenorDe} no pagan. El grupo puede ser de hasta {maxPersonas} personas. {sello}",
+          "En Arma tu día ves el total de tu grupo."
+        ]
+      },
+      {
+        "p": "¿Es seguro para mis hijos?",
+        "r": [
+          "Es un lugar privado y seguro, con guardianía las 24 horas, todos los días. El acceso es controlado: entra quien tiene su código QR de reserva o vive en la urbanización, y hay personal de la urbanización en las áreas. Los chicos están siempre a tu cargo."
+        ]
+      },
+      {
+        "p": "¿Puedo llevar a mi perro y mi comida?",
+        "r": [
+          "Sí, tu perro puede venir. Va con correa y a tu cuidado, y te pedimos recoger lo que deje. Puede acompañarte en todas las áreas menos el área de piscina. En la piscina natural se queda contigo en el borde, sin entrar al agua.",
+          "También puedes traer tu comida y bebida. Los fines de semana abre el restaurante de la urbanización (se paga aparte), y a 7 minutos, en dirección a Puerto Quito, hay variedad de restaurantes."
+        ]
+      },
+      {
+        "p": "¿Cómo reservo, pago y llego?",
+        "r": [
+          "Escríbenos por WhatsApp con la fecha y cuántos vienen. Abrimos todos los días, también en feriados, siempre con reserva, y puedes disfrutar las áreas de 8 de la mañana a 8 de la noche.",
+          "Pagas el valor completo antes de ingresar, por transferencia o con tarjeta de crédito; si prefieres tarjeta, te enviamos un enlace de pago por WhatsApp. Puedes cambiar la fecha avisando con dos días de anticipación.",
+          "Estamos en Puerto Quito, a poco más de dos horas de Quito. Al reservar te enviamos un código QR: cuando llegues, lo presentas en la garita junto con el nombre de la reserva. Cada área tiene su parqueadero.",
+          "¿Y si llueve? El día sigue: puedes seguir usando las áreas. Si la lluvia es fuerte, te recomendamos salir de la zona del río."
+        ]
+      }
+    ],
+    "pie": {
+      "lema": "Tu refugio en la naturaleza",
+      "lugar": "Puerto Quito, Pichincha · a poco más de dos horas de Quito",
+      "horario": "Todos los días, con reserva, de 8 de la mañana a 8 de la noche.",
+      "boton": "Escríbenos y te contamos",
+      "enlaces": {
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "maps": "Cómo llegar",
+        "whatsapp": "WhatsApp 097 886 1426"
+      },
+      "derechos": "© {anio} LunaBlanca"
+    },
+    "flotante": "Arma tu día",
+    "saltar": "Saltar a Arma tu día",
+    "meta": {
+      "titulo": "Día LunaBlanca · Puerto Quito, a poco más de dos horas de Quito",
+      "descripcion": "Un día privado para tu grupo en Puerto Quito: piscina natural, cascada, río Caoní, toboganes, sauna y zona BBQ. Hasta {maxPersonas} personas, todos los días con reserva.",
+      "ogTitulo": "Un día en LunaBlanca"
+    },
+    "video": {
+      "reproducir": "Reproducir",
+      "pausar": "Pausar"
+    },
+    "noEncontrada": {
+      "titulo": "No encontramos esta página",
+      "enlace": "Volver al inicio"
+    }
+  }
+}

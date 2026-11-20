@@ -1,0 +1,23 @@
+# Generado
+dist/
+node_modules/
+.env
+.env.*
+*.log
+.scratch/
+qa/
+
+# Crudo: nunca se versiona (repo público)
+*.mov
+*.MOV
+*.heic
+*.HEIC
+*.dng
+*.csv
+
+# Documentos internos (el repo es público)
+docs/
+bitacora.md
+backlog-ideas.md
+marca/
+herramientas/terminos-sensibles.txt

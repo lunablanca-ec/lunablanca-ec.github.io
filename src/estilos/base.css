@@ -1,0 +1,92 @@
+/* Fuentes autoalojadas (OFL), subset latin; swap para que el texto se vea de inmediato */
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fuentes/cormorant-garamond-latin-500-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url(fuentes/cormorant-garamond-latin-600-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+@font-face { font-family: "Jost"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fuentes/jost-latin-400-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+@font-face { font-family: "Jost"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fuentes/jost-latin-500-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; min-height: 100vh; overflow-x: clip; font: 400 var(--t-cuerpo)/1.55 var(--f-texto); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+img, picture, video, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+h1 { font: 500 var(--t-h1)/1.02 var(--f-titulo); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.005em; }
+h2 { font: 500 var(--t-h2)/1.05 var(--f-titulo); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.005em; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.saltar { position: fixed; left: 8px; top: -80px; z-index: 20; padding: 12px 16px; min-height: 44px; background: var(--verde); color: var(--crema); font: 500 var(--t-boton)/1.4 var(--f-texto); border-radius: 3px; }
+.saltar:focus { top: 8px; outline-color: var(--crema); }
+
+.etiqueta { font: 500 var(--t-etiqueta)/1.3 var(--f-texto); letter-spacing: .14em; text-transform: uppercase; }
+
+/* Botones: 48 px de alto (mínimo 44) */
+.boton { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--e-3); border-radius: 3px; text-align: center; text-decoration: none;
+  background: var(--boton-fondo); color: var(--boton-texto); font: 500 var(--t-boton)/1.2 var(--f-texto); transition: transform 120ms var(--ease-salida); }
+.boton:active { transform: scale(.97); }
+.boton:focus-visible { outline-color: var(--foco); }
+.enlace span { margin-left: .35em; }
+.enlace { display: inline-flex; align-items: center; min-height: 44px; font: 500 .9375rem/1.2 var(--f-texto); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+/* Sello de apertura: cápsula con borde fino (nunca cinta ni rojo) */
+.sello { display: inline-block; padding: 4px 12px; border: 1px solid var(--acento); border-radius: 999px; color: var(--acento); font: 500 .8125rem/1.3 var(--f-texto); }
+.sello-fila { margin-top: var(--e-1); }
+
+/* Texto de cada momento */
+.texto { padding-inline: var(--margen); }
+.texto > * { max-width: var(--medida); }
+.texto .etiqueta { margin-bottom: var(--e-1); color: var(--texto); }
+.texto h2 { margin-bottom: .75rem; }
+.texto p:not(.etiqueta) { color: var(--texto-2); }
+.texto .nota { margin-top: var(--e-1); font-size: var(--t-chico); }
+.texto .linea { font: 500 var(--t-h2-resumen)/1.1 var(--f-titulo); color: var(--texto); }
+.texto .cierre { margin-top: var(--e-3); font: 500 1.75rem/1.15 var(--f-titulo); color: var(--texto); }
+.texto .lema { margin-top: var(--e-3); color: var(--acento); }
+
+/* Antes de venir */
+.antes { max-width: 36rem; padding: var(--e-4) var(--margen) var(--e-6); }
+.antes h2 { margin-bottom: var(--e-3); }
+details { border-top: 1px solid var(--linea); }
+details:last-of-type { border-bottom: 1px solid var(--linea); }
+summary { display: flex; align-items: center; justify-content: space-between; gap: var(--e-2); min-height: 56px; padding: 12px 0; cursor: pointer; list-style: none; font: 500 1.0625rem/1.3 var(--f-texto); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; flex: none; width: 24px; text-align: center; font-size: 1.5rem; line-height: 1; color: var(--acento); }
+details[open] summary::after { content: "−"; }
+summary:focus-visible { outline-offset: -2px; }
+.respuesta { padding: 0 0 var(--e-3); max-width: 46ch; }
+.respuesta p { margin: 0 0 .75rem; color: var(--texto-2); }
+.respuesta a { text-underline-offset: 3px; }
+
+/* Pie */
+.pie { display: flex; flex-direction: column; align-items: flex-start; gap: var(--e-1); padding: var(--e-5) var(--margen) var(--e-4); background: var(--verde); color: var(--crema); --texto: var(--crema); --texto-2: var(--crema-suave); --acento: var(--ambar); --foco: var(--ambar); --linea: rgb(244 237 226 / .2); }
+.pie-logo { width: 160px; height: auto; margin-bottom: var(--e-1); }
+.pie .lema { color: var(--ambar); margin-bottom: var(--e-1); }
+.pie p { color: var(--texto-2); }
+.pie .boton { margin: var(--e-2) 0; width: 100%; max-width: 20rem; background: var(--ambar); color: var(--verde); }
+.enlaces { display: flex; flex-wrap: wrap; gap: 0 var(--e-3); }
+.enlaces a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
+.derechos { display: flex; align-items: center; gap: var(--e-2); margin-top: var(--e-2); }
+.derechos img { width: 40px; height: 40px; }
+
+/* Botón flotante: solo móvil; entra y sale con opacity y translateY */
+.flotante { position: fixed; right: 16px; bottom: 16px; z-index: 10; display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--e-3); border-radius: 999px;
+  background: var(--boton-fondo); color: var(--boton-texto); font: 500 .9375rem/1 var(--f-texto); text-decoration: none; box-shadow: 0 0 0 1px var(--linea);
+  opacity: 0; visibility: hidden; transform: translate3d(0, 12px, 0); transition: opacity 300ms var(--ease-calma), transform 300ms var(--ease-calma), visibility 0s linear 300ms; }
+.flotante.visible { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+@media (min-width: 900px) { .flotante { display: none; } }
+
+/* 404 */
+.pagina-simple { display: grid; place-items: center; min-height: 100vh; padding: var(--margen); text-align: center; }
+.pagina-simple h1 { margin-bottom: var(--e-3); }
+.pagina-simple .boton { display: inline-flex; }

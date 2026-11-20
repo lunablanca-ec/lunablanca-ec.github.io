@@ -1,0 +1,21 @@
+{
+  "name": "lunablanca-landing",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "medios": "node herramientas/medios.mjs",
+    "build": "node herramientas/build.mjs",
+    "test": "node --test pruebas/*.test.mjs && node herramientas/privacidad.mjs",
+    "privacidad": "node herramientas/privacidad.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "lighthouse": "^13.6.0",
+    "playwright": "^1.65.1",
+    "sharp": "^0.35.5"
+  }
+}

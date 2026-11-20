@@ -1,0 +1,158 @@
+{
+  "_nota": "Rutas relativas a MATERIAL_DIR (el crudo nunca se copia al repo). tipo: video | cuadro (un cuadro de un video) | foto. recorte: aspecto 'ancho:alto', centro (cx, cy) y escala (1 = el recorte mas grande posible). Los alt no llevan nombres de personas.",
+  "anchos": [480, 720, 1080],
+  "presupuestoVideoKB": 700,
+  "presupuestoPosterHeroKB": 120,
+  "items": [
+    {
+      "id": "piscina-natural",
+      "momento": "8:00 hero",
+      "tipo": "video",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-002/B-roll Luna Blanca/20261115_135049.mp4",
+      "video": { "inicio": 0.3, "duracion": 7.0 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Piscina natural de agua verde con una caída de agua sobre una roca de piedra, rodeada de vegetación"
+    },
+    {
+      "id": "sendero",
+      "momento": "9:00",
+      "tipo": "cuadro",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-003/B-roll Luna Blanca/20261115_143812.mp4",
+      "cuadro": { "t": 3.0 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Sendero de cemento con pasamanos de troncos que baja entre la vegetación hacia la cascada"
+    },
+    {
+      "id": "cascada",
+      "momento": "9:00",
+      "tipo": "video",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-002/B-roll Luna Blanca/20261115_144029.mp4",
+      "video": { "inicio": 0.4, "duracion": 6.5 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Cascada pequeña que cae sobre rocas hacia una poza, entre palmas y selva"
+    },
+    {
+      "id": "luna-borde",
+      "momento": "10:30 y og",
+      "tipo": "foto",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-001/B-roll Luna Blanca/20261115_141814.jpg",
+      "recorte": { "aspecto": "3:4" },
+      "alt": "Luna, una perra negra con pecho blanco, recostada junto al borde de la piscina natural; detrás, la caída de piedra y la vegetación"
+    },
+    {
+      "id": "luna-video",
+      "momento": "10:30",
+      "tipo": "video",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-001/B-roll Luna Blanca/20261115_141831.mp4",
+      "video": { "inicio": 0.3, "duracion": 7.0 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Luna recostada y tranquila junto a la piscina natural, con la lengua afuera, frente a una caída de piedra"
+    },
+    {
+      "id": "piscina-reservada",
+      "momento": "12:00",
+      "tipo": "foto",
+      "origen": "Extra/20260804_134629.jpg",
+      "recorte": { "aspecto": "9:16", "cx": 0.36, "cy": 0.5 },
+      "alt": "Piscina artificial de borde sinuoso, vacía, con reposeras blancas y árboles al fondo"
+    },
+    {
+      "id": "bbq",
+      "momento": "12:00",
+      "tipo": "cuadro",
+      "origen": "Extra/20260804_162608_1.mp4",
+      "cuadro": { "t": 4.2 },
+      "recorte": { "aspecto": "4:5", "cx": 0.5, "cy": 0.36 },
+      "alt": "Fila de kioscos techados con mesas de piedra y bancas para el grupo, entre el césped y los árboles"
+    },
+    {
+      "id": "tobogan",
+      "momento": "14:00",
+      "tipo": "video",
+      "origen": "Extra/20260804_144812_1.mp4",
+      "video": { "inicio": 5.2, "duracion": 6.3 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Tobogán azul que sale del bosque hacia una piscina de agua celeste, junto a un tobogán de colores"
+    },
+    {
+      "id": "puente",
+      "momento": "15:30",
+      "tipo": "cuadro",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-003/B-roll Luna Blanca/20261115_151159.mp4",
+      "cuadro": { "t": 3.4 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Puente colgante con pórtico de troncos y piso de madera que se adentra en la selva"
+    },
+    {
+      "id": "sauna",
+      "momento": "17:00",
+      "tipo": "cuadro",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-002/B-roll Luna Blanca/IMG_8955.MOV",
+      "cuadro": { "t": 11.3 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Interior del sauna, con paredes y bancas de madera clara y una línea de luz cálida"
+    },
+    {
+      "id": "turco",
+      "momento": "17:00",
+      "tipo": "cuadro",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-001/B-roll Luna Blanca/IMG_8956.MOV",
+      "cuadro": { "t": 2.3 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Interior del baño turco, revestido de mosaico gris y blanco, con una banca y una ducha de mano"
+    },
+    {
+      "id": "gimnasio",
+      "momento": "17:00",
+      "tipo": "cuadro",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-002/B-roll Luna Blanca/IMG_8957.MOV",
+      "cuadro": { "t": 4.6 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Gimnasio con techo de vigas de madera, caminadora y bicicleta, y ventanales hacia el verde"
+    },
+    {
+      "id": "cancha",
+      "momento": "17:00",
+      "tipo": "foto",
+      "origen": "Extra/20260804_154431.jpg",
+      "recorte": { "aspecto": "3:4" },
+      "alt": "Cancha de césped sintético con líneas blancas, rodeada de bosque, con una gradería techada a un lado"
+    },
+    {
+      "id": "tarde",
+      "momento": "18:30",
+      "tipo": "cuadro",
+      "origen": "B-roll Luna Blanca-20261117T025410Z-1-001/B-roll Luna Blanca/20261115_141846.mp4",
+      "cuadro": { "t": 5.2 },
+      "recorte": { "aspecto": "9:16" },
+      "alt": "Luna descansando sola en el borde de la piscina natural, con la banca blanca y los árboles detrás"
+    },
+    {
+      "id": "noche",
+      "momento": "20:00",
+      "tipo": "foto",
+      "origen": "Luna durmiendo/IMG-20261117-WA0034.jpg",
+      "recorte": { "aspecto": "1200:1080", "cx": 0.5, "cy": 0.0 },
+      "alt": "Luna durmiendo enroscada en el asiento trasero del auto, de regreso a casa"
+    }
+  ],
+  "og": {
+    "origen": "luna-borde",
+    "recorte": { "aspecto": "1200:630", "cx": 0.5, "cy": 0.535 },
+    "velo": "#1A3A2E",
+    "logo": "../../../fichas/lunablanca/marca/logos/lunablanca-logo-apilado-fondo-oscuro.png",
+    "maxKB": 250
+  },
+  "marca": {
+    "origenDir": "../../../fichas/lunablanca/marca/logos",
+    "svg": [
+      "lunablanca-logo-horizontal-fondo-claro",
+      "lunablanca-logo-horizontal-fondo-oscuro",
+      "lunablanca-simbolo-fondo-claro",
+      "lunablanca-simbolo-fondo-oscuro",
+      "lunablanca-icono-perfil-verde",
+      "lunablanca-sello-huella-crema"
+    ],
+    "favicon": "lunablanca-icono-perfil-verde"
+  }
+}
