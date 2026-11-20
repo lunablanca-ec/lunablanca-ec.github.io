@@ -26,6 +26,18 @@ Todo está en `contenido/sitio.json` (se edita desde github.com con el lápiz).
 - Medios: `src/medios/` (los genera `npm run medios`, solo en local). Máximo 4 videos; hoy son 3 (hero,
   cascada y Luna). El tobogán y el puente van como cuadros fijos.
 
+## Versión 2 "El día gira" (/v2/)
+
+Página alternativa en `dist/v2/`, con el mismo contenido (`contenido/sitio.json`) y los mismos medios. La raíz no cambia.
+Un arco fijo arriba lleva el sol de 8:00 a 20:00 con el scroll; el cielo cambia con la hora; cada momento es una escena fija
+con fotos por capas; la calculadora mueve el sol a la franja elegida y deshabilita las franjas que ya pasaron si la fecha es hoy.
+Lleva `noindex` hasta que Alexis la apruebe.
+
+- Diseño y plantilla: `src/v2/plantilla-v2.mjs` (qué foto va en qué escena); estilos: `src/v2/estilos/v2.css`.
+- Comportamiento: `src/v2/app-v2.mjs`; lógica pura del día (franjas, hora): `src/v2/dia.mjs`.
+- Franjas: `reserva.franjasFin` (hora en que termina cada franja) y `reserva.franjasSol` (hora del sol al elegirla) en `sitio.json`.
+- Con `prefers-reduced-motion`: sin sticky ni parallax, todo legible; el sol y el cielo cambian por escena.
+
 ## Comandos
 
 ```

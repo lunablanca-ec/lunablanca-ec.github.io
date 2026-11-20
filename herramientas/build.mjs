@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { transformSync, buildSync } from 'esbuild';
 import { hoyEnZona, esFechaISO } from '../src/js/logica.mjs';
 import { renderizar, renderizar404 } from '../src/plantilla.mjs';
+import { renderizarV2 } from '../src/v2/plantilla-v2.mjs';
 import { validarSitio, buscarProhibidas, textoLintable } from './validacion.mjs';
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -60,6 +61,35 @@ function js(dist) {
   return { nombre, codigo };
 }
 
+// La v2 ("El día gira") se publica en dist/v2/ con su propio HTML, CSS y JS; comparte medios, fuentes y marca con la raíz.
+function construirV2({ sitio, medios, hoy, dist, faviconSvg }) {
+  const dir = join(SRC, 'v2');
+  if (!existsSync(dir)) return null;
+  const salida = join(dist, 'v2');
+  mkdirSync(salida, { recursive: true });
+
+  const estilos = join(SRC, 'estilos');
+  const fuente = ['tokens.css', 'base.css', 'calculadora.css'].map((f) => readFileSync(join(estilos, f), 'utf8'))
+    .concat(readFileSync(join(dir, 'estilos', 'v2.css'), 'utf8')).join('\n')
+    .replaceAll('url(fuentes/', 'url(../fuentes/'); // la página vive un nivel más abajo
+  const cssV2 = transformSync(fuente, { loader: 'css', minify: true }).code.trim();
+
+  const { outputFiles } = buildSync({
+    entryPoints: [join(dir, 'app-v2.mjs')], bundle: true, minify: true, format: 'esm', target: 'es2022', write: false, outfile: 'app-v2.js',
+  });
+  const codigo = outputFiles[0].text;
+  const nombreJs = `app-v2.${hash(codigo)}.js`;
+  writeFileSync(join(salida, nombreJs), codigo);
+
+  const html = renderizarV2({ sitio, medios, hoy, activos: { css: cssV2, jsSrc: nombreJs, favicon: faviconSvg ? `../${faviconSvg}` : '' } });
+  const hallazgos = buscarProhibidas(textoLintable(html));
+  if (hallazgos.length) fallar('Hay palabras prohibidas en el texto de la v2 (plan §5)', hallazgos.map((h) => `v2/index.html: "${h}"`));
+  writeFileSync(join(salida, 'index.html'), html);
+  const gz = (x) => gzipSync(x).length;
+  console.log(`  v2/index.html ${kb(Buffer.from(html))}, ${(gz(html) / 1024).toFixed(1)} KB gzip · ${nombreJs} ${(gz(codigo) / 1024).toFixed(1)} KB gzip`);
+  return html;
+}
+
 export function construir() {
   const sitio = leerJson(join(RAIZ, 'contenido', 'sitio.json'), 'contenido/sitio.json');
   const errores = validarSitio(sitio);
@@ -107,6 +137,8 @@ export function construir() {
   if (existsSync(join(SRC, 'marca', 'icono-192.png'))) copyFileSync(join(SRC, 'marca', 'icono-192.png'), join(dist, 'favicon.ico'));
   writeFileSync(join(dist, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${url}/</loc><lastmod>${hoy}</lastmod></url>\n</urlset>\n`);
+
+  if (medios) construirV2({ sitio, medios, hoy, dist, faviconSvg });
 
   const gz = (s) => gzipSync(s).length;
   console.log(`dist/ listo (fecha de referencia ${hoy}${simulada ? ', simulada' : ''}).`);

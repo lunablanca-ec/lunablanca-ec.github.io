@@ -1,0 +1,238 @@
+/* LunaBlanca v2 · "El día gira". Se carga después de tokens.css, base.css y calculadora.css.
+   Colores y tipografías solo desde tokens. Lo que se mueve con el scroll va por variables:
+   --h (hora del día, 8 a 20), --g (avance de la página) y --u (avance de cada escena). */
+
+:root {
+  --banda: 68px;
+  --h: 8;
+  /* Tinta del texto sobre el cielo: verde de día; con la noche cambia de golpe (clase "noche" en <html>) y se funde con transition de color */
+  --tx: var(--verde);
+  --tx-2: var(--carbon);
+  --estrellas-fondo:
+    radial-gradient(1.2px 1.2px at 8% 22%, var(--crema) 60%, transparent 62%), radial-gradient(1px 1px at 17% 61%, var(--crema) 60%, transparent 62%),
+    radial-gradient(1.4px 1.4px at 29% 12%, var(--crema) 60%, transparent 62%), radial-gradient(1px 1px at 38% 47%, var(--crema) 60%, transparent 62%),
+    radial-gradient(1.2px 1.2px at 46% 78%, var(--crema) 60%, transparent 62%), radial-gradient(1px 1px at 55% 28%, var(--crema) 60%, transparent 62%),
+    radial-gradient(1.4px 1.4px at 63% 9%, var(--crema) 60%, transparent 62%), radial-gradient(1px 1px at 71% 55%, var(--crema) 60%, transparent 62%),
+    radial-gradient(1.2px 1.2px at 79% 33%, var(--crema) 60%, transparent 62%), radial-gradient(1px 1px at 86% 82%, var(--crema) 60%, transparent 62%),
+    radial-gradient(1.4px 1.4px at 93% 16%, var(--crema) 60%, transparent 62%), radial-gradient(1px 1px at 24% 90%, var(--crema) 60%, transparent 62%),
+    radial-gradient(1px 1px at 68% 92%, var(--crema) 60%, transparent 62%), radial-gradient(1.2px 1.2px at 52% 52%, var(--crema) 60%, transparent 62%); }
+
+/* ───────── Banda superior: el arco del día (elemento firma) ───────── */
+.banda { position: fixed; top: 0; left: 0; right: 0; z-index: 30; height: var(--banda); overflow: hidden; border-bottom: 1px solid color-mix(in srgb, var(--tx) 14%, transparent); }
+.arco { position: absolute; inset: 0; color: var(--tx); --lun: clamp(0, calc((var(--hs, 8) - 17.5) / 2.5), 1); }
+.pista { position: absolute; left: 24px; right: 24px; top: 6px; height: 34px; container-type: inline-size; }
+.arco-linea { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.arco-linea path { fill: none; stroke: currentColor; stroke-width: 1.25; stroke-dasharray: 2 6; stroke-linecap: round; opacity: .5; }
+.sol { position: absolute; left: 0; top: 0; width: 0; height: 0;
+  --cielo-v2-amanecer: linear-gradient(180deg, color-mix(in srgb, var(--ambar) 24%, var(--crema)) 0%, var(--crema) 72%);
+  --cielo-v2-manana: linear-gradient(180deg, color-mix(in srgb, var(--agua) 26%, var(--crema)) 0%, color-mix(in srgb, var(--agua) 6%, var(--crema)) 85%);
+  --cielo-v2-mediodia: linear-gradient(180deg, var(--crema) 0%, color-mix(in srgb, var(--agua) 10%, var(--crema)) 100%);
+  --cielo-v2-tarde: linear-gradient(180deg, color-mix(in srgb, var(--ambar) 55%, var(--crema)) 0%, color-mix(in srgb, var(--ambar) 22%, var(--crema)) 100%);
+}
+html.noche { --tx: var(--crema); --tx-2: var(--crema-suave); }
+/* --h (la hora) solo se escribe en estos dos elementos: así cada cuadro recalcula estilos de pocos nodos */
+.banda, .cielo-pleno { --noche: clamp(0, calc((var(--h) - 18.8) / 1.2), 1); }
+.banda { --tx: color-mix(in srgb, var(--crema) calc(var(--noche) * 100%), var(--verde)); }
+@media (min-width: 900px) { :root { --banda: 84px; } }
+
+html { scroll-behavior: auto; }
+body { background: var(--crema); color: var(--verde); }
+main { position: relative; z-index: 1; padding-top: var(--banda); }
+
+/* Cada bloque trae su propia tinta; las escenas sobre foto son crema (con velo), el resto la del cielo */
+.tema-noche { position: relative; isolation: isolate; background: var(--verde);
+  --texto: var(--crema); --texto-2: var(--crema-suave); --acento: var(--ambar); --boton-fondo: var(--ambar); --boton-texto: var(--verde);
+  --foco: var(--ambar); --linea: rgb(244 237 226 / .2); color: var(--texto);
+}
+
+/* Estrellas también sobre los bloques de noche (fondo propio y opaco: el contraste no depende del scroll) */
+.tema-noche::before, .escena.enmarcada .vidrio::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--estrellas-fondo); opacity: .5; pointer-events: none; }
+.escena.enmarcada .vidrio::before { z-index: 0; }
+
+/* ───────── Cielo continuo ───────── */
+.cielo { position: absolute; inset: 0; overflow: hidden; background: var(--crema); }
+.cielo-pleno { position: fixed; z-index: 0; }
+.cielo i { position: absolute; inset: 0; }
+.c-amanecer { background: var(--cielo-v2-amanecer); }
+.c-manana { background: var(--cielo-v2-manana); opacity: clamp(0, calc((var(--h) - 8.4) / 1.6), 1); }
+.c-mediodia { background: var(--cielo-v2-mediodia); opacity: clamp(0, calc((var(--h) - 10.6) / 1.6), 1); }
+.c-tarde { background: var(--cielo-v2-tarde); opacity: clamp(0, calc((var(--h) - 14.5) / 3), 1); }
+.c-noche { background: var(--cielo-noche); opacity: clamp(0, calc((var(--h) - 18.8) / 1.2), 1); }
+/* Estrellas: solo aparecen con la noche, muy tenues */
+.estrellas { position: absolute; inset: 0; opacity: calc(var(--noche) * .5); background: var(--estrellas-fondo); }
+  transform: translate3d(calc(var(--ps, 0) * 100cqw), calc(4 * (var(--ps, 0) - .5) * (var(--ps, 0) - .5) * 34px), 0); }
+.arco.salta .sol { transition: transform 900ms var(--ease-calma); }
+.sol-punto { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--ambar);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ambar) 32%, transparent), 0 0 14px var(--ambar); }
+.sol-hora { position: absolute; top: 11px; left: 0; translate: calc(-50% - 50px * clamp(0, (var(--ps, 0) - .8) * 8, 1)) 0; font: 500 .6875rem/1 var(--f-texto); letter-spacing: .08em; font-variant-numeric: tabular-nums; white-space: nowrap; color: currentColor; }
+/* La luna creciente del logo (identidad B) se arma con el día; el punto es el sol */
+.luna-enlace { position: absolute; left: 100%; top: 100%; width: 44px; height: 42px; translate: -58.7% -48.5%; display: block; }
+.luna-logo { width: 100%; height: 100%; fill: currentColor; opacity: var(--lun); scale: calc(.8 + var(--lun) * .2); rotate: calc((1 - var(--lun)) * -28deg); }
+.arco.salta .luna-logo { transition: opacity 600ms var(--ease-calma), scale 600ms var(--ease-calma), rotate 600ms var(--ease-calma); }
+@media (min-width: 900px) {
+  .pista { left: 6vw; right: 6vw; top: 10px; height: 44px; }
+  .arco-linea path { stroke-width: 1.5; }
+  .sol { transform: translate3d(calc(var(--ps, 0) * 100cqw), calc(4 * (var(--ps, 0) - .5) * (var(--ps, 0) - .5) * 44px), 0); }
+  .sol-punto { left: -6px; top: -6px; width: 12px; height: 12px; }
+  .sol-hora { top: 13px; font-size: .75rem; }
+  .luna-enlace { width: 56px; height: 54px; }
+}
+
+/* Sello de huella: avance de la página en el lateral */
+.huella { position: fixed; z-index: 25; right: 4px; top: calc(var(--banda) + 14px); bottom: 14px; width: 20px; pointer-events: none; container-type: size; color: var(--crema); }
+.huella::before { content: ""; position: absolute; left: 9.5px; top: 0; bottom: 0; width: 1px; background: currentColor; opacity: .3; }
+.huella i { position: absolute; left: 0; top: 0; width: 20px; height: 20px; background: currentColor; transform: translate3d(0, calc(var(--g, 0) * (100cqh - 20px)), 0);
+  -webkit-mask: url(../marca/sello-huella-crema.svg) center / contain no-repeat; mask: url(../marca/sello-huella-crema.svg) center / contain no-repeat; filter: drop-shadow(0 0 3px rgb(26 58 46 / .65)); }
+@media (min-width: 900px) { .huella { right: 14px; color: var(--tx); } .huella i { filter: none; } }
+
+/* ───────── Escenas ───────── */
+.escenas { position: relative; }
+.ancla { display: block; height: 0; }
+.escena { position: sticky; top: var(--banda); height: calc(100svh - var(--banda)); margin-bottom: 10svh; color: var(--crema); --texto: var(--crema); --texto-2: var(--crema); --acento: var(--crema); --foco: var(--crema); }
+.vidrio { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: var(--verde); border-radius: 50% 50% 0 0 / 7svh 7svh 0 0; }
+/* Corte curvo: sobre el borde de la escena que entra asoma una luna creciente fina */
+.borde { position: absolute; z-index: 0; left: -5vw; right: 9vw; top: -9px; height: 9svh; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: color-mix(in srgb, var(--ambar) 62%, var(--crema)); opacity: .85; }
+.escena:first-child .borde, .portada .borde { display: none; }
+
+.fondo { position: absolute; inset: 0; overflow: hidden; scale: calc(1.04 + var(--u, .5) * .08); translate: calc((var(--u, .5) - .5) * -4%) calc((var(--u, .5) - .5) * -2%); }
+.fondo picture, .fondo img, .fondo video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fondo video { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms var(--ease-calma); }
+.fondo.reproduciendo video { opacity: 1; }
+.velo { position: absolute; inset: 0; background: linear-gradient(to top, rgb(26 58 46 / .94) 0%, rgb(26 58 46 / .82) 30%, rgb(26 58 46 / 0) 64%); }
+.portada .velo { background: linear-gradient(to top, rgb(26 58 46 / .94) 0%, rgb(26 58 46 / .8) 32%, rgb(26 58 46 / 0) 66%), linear-gradient(to bottom, rgb(26 58 46 / .55), rgb(26 58 46 / 0) 22%); }
+.logo-hero { position: absolute; z-index: 2; top: 22px; left: var(--margen); width: 150px; height: auto; }
+.video-boton { position: absolute; z-index: 3; top: 16px; right: 16px; min-height: 44px; padding: 0 var(--e-3); border: 1px solid var(--crema); border-radius: 3px; background: var(--verde); color: var(--crema); font: 500 .9375rem/1 var(--f-texto); }
+.video-boton[hidden] { display: none; }
+
+.escena.enmarcada .fondo { inset: 4% 13% 40% 13%; border-radius: 999px 999px 10px 10px; scale: 1; translate: none; }
+.escena.enmarcada .fondo img { object-position: 0% 100%; }
+.escena.enmarcada .velo { display: none; }
+
+/* Capas: 2 o 3 fotos con profundidad y parallax suave (nunca en grilla) */
+.capas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.capa { position: absolute; margin: 0; overflow: hidden; border-radius: 4px; background: var(--verde); box-shadow: 0 18px 38px -14px rgb(0 0 0 / .6), 0 0 0 1px rgb(244 237 226 / .5);
+  opacity: 0; scale: .92; rotate: var(--rot, 0deg); translate: 0 calc((.5 - var(--u, .5)) * var(--par, 80) * 1px);
+  transition: opacity 900ms var(--ease-calma), scale 900ms var(--ease-calma); transition-delay: calc(var(--k) * 160ms + 350ms); }
+.capa picture, .capa img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.escena.activa .capa { opacity: 1; scale: 1; }
+.escena.cerca .fondo, .escena.cerca .capa { will-change: scale, translate; }
+.c1 { top: 5%; right: 5%; width: 40vw; aspect-ratio: 4 / 5; --par: 130; --rot: 2deg; }
+.c2 { top: 31%; left: 22%; width: 38vw; aspect-ratio: 4 / 5; --par: 70; --rot: -2.5deg; }
+.c3 { top: 9%; left: 6%; width: 28vw; aspect-ratio: 4 / 5; --par: 95; --rot: -4deg; }
+.escena:not(:has(.c3)) .c2 { left: 8%; }
+.escena.enmarcada .capas { display: none; }
+
+/* Texto: aparece línea por línea al activarse la escena; el espacio de abajo es del botón flotante */
+.texto { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 0 var(--margen) 76px; }
+.texto > * { max-width: 34ch; }
+.texto h1, .texto h2 { margin-bottom: .6rem; color: var(--crema); }
+.texto h2 { font-size: clamp(2rem, 9vw, 2.75rem); }
+.texto p { color: var(--crema); }
+.texto .etiqueta { margin-bottom: .5rem; color: var(--ambar); letter-spacing: .14em; }
+.texto .nota { margin-top: .5rem; font-size: var(--t-chico); line-height: 1.45; color: var(--crema-suave); }
+.hora-escena { font-variant-numeric: tabular-nums; }
+.js .l { opacity: 0; translate: 0 14px; transition: opacity 320ms var(--ease-calma), translate 320ms var(--ease-calma), color 600ms linear; }
+.js .escena.activa .l { opacity: 1; translate: none; transition-duration: 800ms; transition-delay: calc(var(--i) * 260ms + 180ms); }
+/* El hero se ve de inmediato (es lo primero que se pinta); solo entra con un fundido */
+.portada .l { opacity: 1; translate: none; transition: none; animation: entra 900ms var(--ease-calma) both; animation-delay: calc(var(--i) * 160ms + 120ms); }
+@keyframes entra { from { opacity: 0; translate: 0 14px; } }
+.pista-bajar { display: flex; align-items: center; gap: .75rem; margin-top: 1.25rem; font: 500 .75rem/1 var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--crema); }
+.pista-linea { width: 1.75rem; height: 1px; background: var(--ambar); }
+
+/* ───────── Qué incluye y precio (segunda pantalla) ───────── */
+.incluye { position: relative; height: auto; min-height: calc(100svh - var(--banda)); margin-bottom: 0; padding: 7svh var(--margen) 4svh;
+  background: var(--crema); border-radius: 50% 50% 0 0 / 7svh 7svh 0 0; box-shadow: 0 -2px 0 color-mix(in srgb, var(--ambar) 55%, var(--crema));
+  --texto: var(--verde); --texto-2: var(--carbon); --acento: var(--ambar-hondo); --boton-fondo: var(--verde); --boton-texto: var(--crema); --foco: var(--ambar-hondo); --linea: rgb(26 58 46 / .18); color: var(--verde); }
+.incluye .borde { display: none; }
+.incluye h2 { font-size: var(--t-h2-resumen); margin-bottom: .75rem; }
+.lista { display: grid; gap: .5rem; }
+.lista li { position: relative; padding-left: 1.1rem; font-size: .9375rem; line-height: 1.4; color: var(--carbon); }
+.lista li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--ambar-hondo); }
+.no-incluye { margin-top: .75rem; font-size: var(--t-chico); line-height: 1.45; color: var(--carbon); }
+.precio-bloque { display: grid; justify-items: start; gap: .35rem; margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--linea); }
+.grupo { font-size: var(--t-chico); line-height: 1.4; color: var(--carbon); }
+.precio { font: 500 1.5rem/1.15 var(--f-titulo); color: var(--verde); font-variant-numeric: lining-nums; }
+.precio-ninos { font-size: var(--t-chico); color: var(--carbon); }
+.precio-bloque .boton { width: 100%; margin-top: .5rem; }
+.precio-bloque .enlace { color: var(--verde); }
+
+/* ───────── Calculadora, preguntas y cierre (de noche) ───────── */
+.calculadora { padding-top: var(--e-5); max-width: 36rem; margin-inline: auto; }
+.antes { padding-bottom: var(--e-4); margin-inline: auto; }
+.total { overflow: visible; }
+.total span { display: inline-block; transition: none; }
+.total.cuenta span { animation: latido 480ms var(--ease-calma); }
+@keyframes latido { 40% { scale: 1.04; color: var(--ambar); } }
+.contador output.pop { animation: pop 260ms var(--ease-calma); }
+@keyframes pop { 40% { scale: 1.28; color: var(--ambar); } }
+.contador button:not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--texto) 12%, transparent); }
+.franja:has(input:disabled) { opacity: .45; cursor: not-allowed; }
+.franja .pasada { margin-left: auto; font-style: normal; font-size: var(--t-chico); color: var(--texto-2); }
+.franja .pasada[hidden] { display: none; }
+
+.cierre { display: grid; justify-items: center; align-content: center; gap: 1.5rem; min-height: calc(100svh - var(--banda)); padding: var(--e-5) var(--margen) var(--e-4); text-align: center; }
+.cierre h2 { max-width: 16ch; font-size: clamp(2rem, 8vw, 3.25rem); }
+.cierre .boton { width: 100%; max-width: 20rem; }
+.cierre-datos { font-size: var(--t-chico); line-height: 1.5; color: var(--texto-2); }
+.cierre .enlaces { justify-content: center; }
+.derechos { justify-content: center; color: var(--texto-2); }
+/* La luna completa: un disco del color de la noche se desliza y deja la luna llena */
+.luna-llena { position: relative; width: min(52vw, 220px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--crema);
+  box-shadow: 0 0 90px rgb(244 237 226 / calc(var(--ll, 0) * .3)); }
+.luna-llena i { position: absolute; inset: -1px; border-radius: 50%; background: var(--verde); translate: calc(var(--ll, 0) * 110%) 0; }
+
+/* Botón flotante: siempre opaco (nunca semitransparente sobre el texto) */
+.flotante { opacity: 1; background: var(--ambar); color: var(--verde); box-shadow: 0 6px 20px rgb(26 58 46 / .4); transform: translate3d(0, 16px, 0);
+  transition: transform 260ms var(--ease-calma), visibility 0s linear 260ms; }
+.flotante.visible { transform: none; transition-delay: 0s; }
+
+/* ───────── Escritorio: composición propia (texto a un lado, escena fija al otro) ───────── */
+@media (min-width: 900px) {
+  .escena { color: var(--tx); --texto: var(--tx); --texto-2: var(--tx); --acento: var(--ambar-hondo); }
+  .vidrio { left: auto; right: var(--margen); width: 50vw; top: 0; bottom: 24px; border-radius: 25vw 25vw 10px 10px / 25vw 25vw 10px 10px; }
+  .borde { left: auto; right: calc(var(--margen) + 4vw); width: 46vw; top: -10px; height: 25vw; border-radius: 25vw 25vw 0 0 / 25vw 25vw 0 0; }
+  .velo { display: none; }
+  .capas { left: auto; right: var(--margen); width: 50vw; top: 0; bottom: 24px; inset-inline: auto var(--margen); }
+  .c1 { top: 12%; right: -2vw; width: 18vw; }
+  .c2 { top: auto; bottom: 7%; left: -5vw; width: 17vw; }
+  .c3 { top: auto; bottom: 22%; right: 3vw; left: auto; width: 12vw; }
+  .escena:not(:has(.c3)) .c2 { left: -5vw; }
+  .texto { left: var(--margen); right: auto; width: 36vw; top: 0; bottom: 24px; display: flex; flex-direction: column; justify-content: center; padding: 0; }
+  .texto > * { max-width: 32ch; }
+  .texto h1, .texto h2 { color: var(--tx); }
+  .texto h1 { font-size: clamp(3rem, 5vw, 4.75rem); }
+  .texto h2 { font-size: clamp(2.5rem, 4vw, 3.75rem); }
+  .texto p:not(.etiqueta) { color: var(--tx); }
+  .texto p.nota:not(.etiqueta) { color: var(--tx-2); }
+  .texto .etiqueta { color: var(--ambar-hondo); }
+  .pista-bajar { color: var(--tx); }
+  .logo-hero { display: none; }
+  .escena.enmarcada .fondo { inset: 0; border-radius: 0; }
+  .escena.enmarcada .capas { display: block; }
+  .portada .texto::before { content: ""; display: block; width: 168px; height: 45px; margin-bottom: 2rem; background: url(../marca/logo-horizontal-fondo-claro.svg) left / contain no-repeat; }
+  .texto, .incluye-lista { transition: opacity 400ms var(--ease-calma); }
+  .escena:not(.activa) .texto, .incluye:not(.activa) .incluye-lista { opacity: 0; }
+  .incluye { z-index: auto; position: sticky; top: var(--banda); height: calc(100svh - var(--banda)); margin-bottom: 10svh; padding: 0; background: transparent; box-shadow: none; border-radius: 0; color: var(--tx); }
+  .incluye-lista { position: absolute; left: var(--margen); width: 36vw; top: 0; bottom: 24px; display: flex; flex-direction: column; justify-content: center; }
+  .incluye h2, .precio { color: var(--tx); }
+  .lista li, .no-incluye { color: var(--tx); font-size: 1.0625rem; }
+  .precio-bloque { position: absolute; right: var(--margen); width: 50vw; top: 0; bottom: 24px; margin: 0; padding: 20vw 7vw 4vw; justify-items: center; align-content: center; text-align: center;
+    border: 0; background: var(--crema); border-radius: 25vw 25vw 10px 10px; box-shadow: 0 24px 50px -24px rgb(26 58 46 / .5), 0 0 0 1px rgb(26 58 46 / .08); --texto-2: var(--carbon); color: var(--verde); }
+  .precio-bloque .precio { color: var(--verde); }
+  .precio-bloque .boton { max-width: 22rem; }
+  .calculadora { max-width: none; }
+  .antes { max-width: none; }
+  .cierre { min-height: calc(100svh - var(--banda)); }
+}
+
+/* ───────── Movimiento reducido: todo estático y legible ───────── */
+@media (prefers-reduced-motion: reduce) {
+  .escena, .incluye { position: relative; top: auto; margin-bottom: 0; }
+  .fondo { scale: 1; translate: none; }
+  .js .l, .capa { opacity: 1; translate: none; scale: 1; transition: none; }
+  .portada .l { animation: none; }
+  .capa { translate: none; }
+  .cielo i, .estrellas { transition: opacity 300ms linear; }
+  .arco.salta .sol, .arco.salta .luna-logo, .flotante, .total.cuenta span, .contador output.pop { transition: none; animation: none; }
+  .fondo video { transition: none; }
+}
