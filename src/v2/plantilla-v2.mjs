@@ -10,15 +10,51 @@ const esc = (s) => String(s)
 const rellenar = (texto, valores) => texto.replace(/\{(\w+)\}/g, (_, k) => (k in valores ? valores[k] : `{${k}}`));
 const jsonSeguro = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
 
+export function jsonLd(sitio) {
+  const { negocio, redes, sitio: s, reserva, textos } = sitio;
+  const [abre, cierra] = negocio.horario.split('-');
+  const descripcion = rellenar(textos.meta.descripcion, { maxPersonas: sitio.precios.maxPersonas });
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['TouristAttraction', 'LocalBusiness'],
+    name: `${negocio.nombre} · Día LunaBlanca`,
+    description: descripcion,
+    url: s.url,
+    image: `${s.url}/${s.ogImagen}`,
+    telephone: `+${reserva.whatsapp}`,
+    // Sin dirección exacta ni coordenadas: es una urbanización privada.
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: negocio.localidad,
+      addressRegion: negocio.region,
+      addressCountry: negocio.pais,
+    },
+    openingHoursSpecification: [{
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: abre,
+      closes: cierra,
+    }],
+    sameAs: [redes.instagram, redes.tiktok, redes.maps],
+    // Sin offers, review ni aggregateRating (plan §9).
+  };
+}
+
+
 /** Diseño de cada escena: fondo, capas (2 o 3 fotos con profundidad) y a qué hora del arco pertenece. */
 export const ESCENAS = [
   { id: 'm-0900', hora: 9, fondo: 'sendero', capas: ['vive-salto'], linea: 'lineaMedio2' },
-  { id: 'm-1030', hora: 10.5, fondo: 'cascada', capas: ['luna-borde'], linea: 'lineaFotos' },
+  { id: 'm-1030', hora: 10.5, fondo: 'luna-borde', capas: ['cascada'] },
   { id: 'm-1200', hora: 12, fondo: 'piscina-reservada', capas: ['bbq'], nota: 'nota' },
-  { id: 'm-1400', hora: 14, fondo: 'parque-ninos', capas: [{ id: 'sillas-piscina', rotulo: 2 }] },
+  { id: 'm-1400', hora: 14, fondo: 'parque-cerca', capas: [{ id: 'sillas-piscina', rotulo: 2 }] },
   { id: 'm-1830', hora: 18.5, fondo: 'tarde', capas: ['puente'], extra: 'm-1700' },
   { id: 'm-2000', hora: 20, fondo: 'noche', capas: [], enmarcada: true },
 ];
+
+// Apertura "La misma mirada": se decide antes del primer pintado y solo en la primera visita de la sesión.
+// Sin movimiento reducido, sin ancla en la URL; se salta con un toque, una tecla o al desplazarse; dura 1,7 s como máximo.
+const APERTURA_JS = `var d=document.documentElement;d.className+=" js";(function(){try{if(matchMedia("(prefers-reduced-motion:reduce)").matches||location.hash||sessionStorage.getItem("lb-ap"))return;sessionStorage.setItem("lb-ap","1")}catch(e){}var W=innerWidth,H=innerHeight,E=W>899,B=E?84:68,L=E?W*.5:W,A=E?H-B-24:H-B,X=E?W*.94-L:0,D=Math.max(170,Math.min(340,.56*Math.min(W,H)))*.77,S=d.style;S.setProperty("--ap-tx",W/2-X-L/2+"px");S.setProperty("--ap-ty",.46*H-B-A/2+"px");S.setProperty("--ap-sx",D/L);S.setProperty("--ap-sy",D/A);d.classList.add("ap","ap-t");var r=function(){d.classList.remove("ap","ap-fin")},f=function(){d.classList.remove("ap-t");d.classList.add("ap-fin");setTimeout(r,170)};setTimeout(r,1700);["pointerdown","keydown","wheel","touchstart"].forEach(function(e){addEventListener(e,f,{once:true,passive:true})})})()`;
+const APERTURA_HTML = '<div class="apertura" aria-hidden="true"><i class="ap-hueco"></i><svg class="ap-luna" viewBox="0 0 104 100" focusable="false"><circle class="ap-llena" cx="46" cy="50" r="40"/><circle class="ap-bocado" cx="78.1" cy="40" r="33"/><circle class="ap-halo" cx="61" cy="48.5" r="17"/><circle class="ap-ojo" cx="61" cy="48.5" r="11.5"/></svg></div>';
 
 const SIZES_FONDO = '(min-width: 900px) 50vw, 96vw'; // 96vw: a 412 px y 1,75x el ancho de 720 alcanza y no se baja el de 1080
 const SIZES_CAPA = '(min-width: 900px) 20vw, 46vw';
@@ -74,8 +110,8 @@ export function renderizarV2({ sitio, medios, hoy, activos = {} }) {
     const m = items[id];
     if (!m) throw new Error(`Falta el medio "${id}" en medios.json`);
     const fuente = m.poster ?? m;
-    const srcset = (fmt) => m.anchos.map((a) => `../medios/${fuente[fmt][a].archivo} ${a}w`).join(', ');
-    const src = `../medios/${(fuente.webp[720] ?? fuente.webp[m.anchos.at(-1)]).archivo}`;
+    const srcset = (fmt) => m.anchos.map((a) => `medios/${fuente[fmt][a].archivo} ${a}w`).join(', ');
+    const src = `medios/${(fuente.webp[720] ?? fuente.webp[m.anchos.at(-1)]).archivo}`;
     const tam = `width="${m.width}" height="${m.height}"`;
     // Las escenas lejanas no piden nada al abrir: el navegador las hidrata (data-srcset, data-src) cuando se acercan, para no robarle red al hero.
     if (diferida) return `<picture><source type="image/avif" data-srcset="${srcset('avif')}" sizes="${sizes}"><source type="image/webp" data-srcset="${srcset('webp')}" sizes="${sizes}"><img data-src="${src}" alt="${esc(alt ?? m.alt)}" ${tam} decoding="async"></picture>`;
@@ -89,8 +125,8 @@ export function renderizarV2({ sitio, medios, hoy, activos = {} }) {
     const cuerpo = imagen(id, { sizes: SIZES_FONDO, prioridad, diferida });
     if (!video || m.tipo !== 'video' || !m.video) return `<div class="fondo" data-medio="${id}">${cuerpo}</div>`;
     const vd = m.video;
-    const poster = `../medios/${m.poster.avif[480].archivo}`;
-    return `<div class="fondo" data-medio="${id}" data-video>${cuerpo}<video muted loop playsinline preload="none" ${diferida ? `data-poster="${poster}"` : `poster="${poster}"`} aria-hidden="true" tabindex="-1" disablepictureinpicture width="${vd.width}" height="${vd.height}"><source src="../medios/${vd.mp4.archivo}" type="video/mp4"><source src="../medios/${vd.webm.archivo}" type="video/webm"></video><button type="button" class="video-boton" hidden data-reproducir="${esc(t.video.reproducir)}" data-pausar="${esc(t.video.pausar)}" data-alt="${esc(m.alt)}">${esc(t.video.reproducir)}</button></div>`;
+    const poster = `medios/${m.poster.avif[prioridad ? 720 : 480].archivo}`;
+    return `<div class="fondo" data-medio="${id}" data-video>${cuerpo}<video muted loop playsinline preload="none" ${diferida ? `data-poster="${poster}"` : `poster="${poster}"`} aria-hidden="true" tabindex="-1" disablepictureinpicture width="${vd.width}" height="${vd.height}">${vd.webm ? `<source src="medios/${vd.webm.archivo}" type="video/webm">` : ''}<source src="medios/${vd.mp4.archivo}" type="video/mp4"></video><button type="button" class="video-boton" hidden data-reproducir="${esc(t.video.reproducir)}" data-pausar="${esc(t.video.pausar)}" data-alt="${esc(m.alt)}">${esc(t.video.reproducir)}</button></div>`;
   }
 
   // ---------- Cielo (dos copias: la banda superior y el fondo de pantalla completa) ----------
@@ -149,10 +185,15 @@ export function renderizarV2({ sitio, medios, hoy, activos = {} }) {
   // ---------- Documento ----------
   const hero = items['piscina-natural'];
   const preCarga = `
-  <link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="${SIZES_FONDO}" imagesrcset="${hero.anchos.map((a) => `../medios/${hero.poster.avif[a].archivo} ${a}w`).join(', ')}">`;
+  <link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="${SIZES_FONDO}" imagesrcset="${hero.anchos.map((a) => `medios/${hero.poster.avif[a].archivo} ${a}w`).join(', ')}">`;
   const descripcion = plano(t.meta.descripcion);
+  const ogTags = activos.og ? `
+  <meta property="og:image" content="${esc(`${s.url}/${s.ogImagen}`)}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">` : '';
   const cierre = momentos['m-2000'];
-  const logoHero = '../marca/logo-horizontal-fondo-oscuro.svg';
+  const logoHero = 'marca/logo-horizontal-fondo-oscuro.svg';
   const simbolo = '<svg class="luna-logo" viewBox="0 0 104 100" aria-hidden="true" focusable="false"><path d="M78.71 73.02 A40 40 0 1 1 59.93 12.5 A33 33 0 1 0 78.71 73.02 Z"/></svg>';
 
   return `<!doctype html>
@@ -160,18 +201,25 @@ export function renderizarV2({ sitio, medios, hoy, activos = {} }) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
   <title>${esc(plano(t.meta.titulo))}</title>
   <meta name="description" content="${descripcion}">
   <meta name="theme-color" content="#F4EDE2">
-  <link rel="canonical" href="${esc(v.url)}">
+  <link rel="canonical" href="${esc(s.url)}/">
   ${activos.favicon ? `<link rel="icon" href="${esc(activos.favicon)}">` : ''}
-  <link rel="preload" href="../fuentes/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fuentes/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>${preCarga}
-  <script>document.documentElement.className+=" js"</script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_EC">
+  <meta property="og:site_name" content="${esc(negocio.nombre)}">
+  <meta property="og:title" content="${plano(t.meta.ogTitulo)}">
+  <meta property="og:description" content="${descripcion}">
+  <meta property="og:url" content="${esc(s.url)}/">${ogTags}
+  <script type="application/ld+json">${jsonSeguro(jsonLd(sitio))}</script>
+  <link rel="preload" href="fuentes/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>${preCarga}
+  <script>${APERTURA_JS}</script>
   ${activos.css ? `<style>${activos.css}</style>` : ''}
 </head>
 <body>
+  ${APERTURA_HTML}
   <a class="saltar" href="#arma-tu-dia">${esc(t.saltar)}</a>
   ${cielo('cielo-pleno')}
   <header class="banda">
@@ -275,6 +323,49 @@ ${ESCENAS.map(escena).join('')}
   <a class="flotante" href="#arma-tu-dia">${esc(t.flotante)}</a>
   <script type="application/json" id="config-sitio">${jsonSeguro(config)}</script>
   ${activos.jsSrc ? `<script type="module" src="${esc(activos.jsSrc)}"></script>` : ''}
+</body>
+</html>
+`;
+}
+
+export function renderizar404({ sitio, activos = {} }) {
+  const { negocio, sitio: s, textos: t } = sitio;
+  return `<!doctype html>
+<html lang="es-EC">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>${esc(t.noEncontrada.titulo)} · ${esc(negocio.nombre)}</title>
+  ${activos.css ? `<style>${activos.css}</style>` : ''}
+</head>
+<body data-momento="amanecer" class="pagina-simple">
+  <main>
+    <h1>${esc(t.noEncontrada.titulo)}</h1>
+    <p><a class="boton" href="${esc(s.url)}/">${esc(t.noEncontrada.enlace)}</a></p>
+  </main>
+</body>
+</html>
+`;
+}
+
+/** /v2/ ya no existe como página: lleva a la raíz y conserva los UTM y el ancla. */
+export function renderizarRedireccion({ sitio }) {
+  const { negocio, sitio: s } = sitio;
+  const destino = `${s.url}/`;
+  return `<!doctype html>
+<html lang="es-EC">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>${esc(negocio.nombre)}</title>
+  <link rel="canonical" href="${esc(destino)}">
+  <script>location.replace("../"+location.search+location.hash)</script>
+  <noscript><meta http-equiv="refresh" content="0;url=../"></noscript>
+</head>
+<body>
+  <p><a href="../">${esc(negocio.nombre)}</a></p>
 </body>
 </html>
 `;

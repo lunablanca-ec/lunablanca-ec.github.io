@@ -8,6 +8,9 @@ import sharp from 'sharp';
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const LIMITE = 2 * 1024 * 1024;
+// Derivados optimizados (no crudo) que superan el límite a propósito: el video del hero a 1080x1920, sin audio ni metadatos.
+const EXCEPCIONES = { 'src/medios/piscina-natural.mp4': 4 * 1024 * 1024 };
+const limiteDe = (ruta) => EXCEPCIONES[ruta] ?? LIMITE;
 const PROHIBIDAS_EXT = new Set(['.mov', '.heic', '.dng']);
 const IMAGENES = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.tif', '.tiff']);
 const TEXTO = new Set(['.md', '.json', '.mjs', '.js', '.css', '.html', '.yml', '.yaml', '.txt', '.svg', '.xml']);
@@ -35,7 +38,7 @@ function versionables() {
 // 1. Tamaño y extensiones en src/ (esté o no ignorado: lo que se ve aquí acaba en dist/).
 const enSrc = recorrer(join(RAIZ, 'src'));
 for (const f of enSrc) {
-  if (statSync(f).size > LIMITE) falla(`${rel(f)} pesa más de 2 MB`);
+  if (statSync(f).size > limiteDe(rel(f))) falla(`${rel(f)} pesa más de ${limiteDe(rel(f)) / 1048576} MB`);
   if (PROHIBIDAS_EXT.has(extname(f).toLowerCase())) falla(`${rel(f)} es un formato de crudo (.mov, .heic o .dng)`);
 }
 
@@ -44,7 +47,7 @@ if (!lista) console.warn('Aviso: no se pudo consultar git; se omiten las revisio
 else {
   for (const f of lista) {
     if (PROHIBIDAS_EXT.has(extname(f).toLowerCase())) falla(`${f} es un formato de crudo y entraría al repo`);
-    if (statSync(join(RAIZ, f)).size > LIMITE) falla(`${f} pesa más de 2 MB y entraría al repo`);
+    if (statSync(join(RAIZ, f)).size > limiteDe(f)) falla(`${f} pesa más de ${limiteDe(f) / 1048576} MB y entraría al repo`);
     if (INTERNOS.some((i) => (i.endsWith('/') ? f.startsWith(i) : f === i))) {
       falla(`${f} es un documento interno y no está en .gitignore (podría tener nombres o rutas)`);
     }

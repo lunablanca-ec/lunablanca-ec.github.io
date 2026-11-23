@@ -15,52 +15,44 @@
         "avif": {
           "480": {
             "archivo": "piscina-natural-poster-480.avif",
-            "bytes": 55921,
-            "calidad": 50
+            "bytes": 74931,
+            "calidad": 56
           },
           "720": {
             "archivo": "piscina-natural-poster-720.avif",
-            "bytes": 101833,
-            "calidad": 50
+            "bytes": 135791,
+            "calidad": 56
           },
           "1080": {
             "archivo": "piscina-natural-poster-1080.avif",
-            "bytes": 166057,
-            "calidad": 50
+            "bytes": 278620,
+            "calidad": 64
           }
         },
         "webp": {
           "480": {
             "archivo": "piscina-natural-poster-480.webp",
-            "bytes": 99586
+            "bytes": 108342
           },
           "720": {
             "archivo": "piscina-natural-poster-720.webp",
-            "bytes": 180822
+            "bytes": 197466
           },
           "1080": {
             "archivo": "piscina-natural-poster-1080.webp",
-            "bytes": 294302
+            "bytes": 323328
           }
         }
       },
       "video": {
-        "width": 540,
-        "height": 960,
+        "width": 1080,
+        "height": 1920,
         "fps": 24,
-        "duracion": 7,
-        "webm": {
-          "archivo": "piscina-natural.webm",
-          "bytes": 629856,
-          "crf": 34,
-          "kbps": 490,
-          "duracion": 7
-        },
+        "duracion": 5,
         "mp4": {
           "archivo": "piscina-natural.mp4",
-          "bytes": 480418,
-          "crf": 36,
-          "duracion": 7
+          "bytes": 3486876,
+          "crf": 22
         }
       }
     },
@@ -108,8 +100,8 @@
       }
     },
     "cascada": {
-      "momento": "9:00",
-      "tipo": "video",
+      "momento": "10:30 detalle",
+      "tipo": "cuadro",
       "alt": "Cascada pequeña que cae sobre rocas hacia una poza, entre palmas y selva",
       "width": 1080,
       "height": 1920,
@@ -118,56 +110,35 @@
         720,
         1080
       ],
-      "poster": {
-        "avif": {
-          "480": {
-            "archivo": "cascada-poster-480.avif",
-            "bytes": 47234,
-            "calidad": 50
-          },
-          "720": {
-            "archivo": "cascada-poster-720.avif",
-            "bytes": 89493,
-            "calidad": 50
-          },
-          "1080": {
-            "archivo": "cascada-poster-1080.avif",
-            "bytes": 150641,
-            "calidad": 50
-          }
+      "avif": {
+        "480": {
+          "archivo": "cascada-480.avif",
+          "bytes": 47857,
+          "calidad": 50
         },
-        "webp": {
-          "480": {
-            "archivo": "cascada-poster-480.webp",
-            "bytes": 81222
-          },
-          "720": {
-            "archivo": "cascada-poster-720.webp",
-            "bytes": 147682
-          },
-          "1080": {
-            "archivo": "cascada-poster-1080.webp",
-            "bytes": 238280
-          }
+        "720": {
+          "archivo": "cascada-720.avif",
+          "bytes": 89982,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "cascada-1080.avif",
+          "bytes": 151872,
+          "calidad": 50
         }
       },
-      "video": {
-        "width": 540,
-        "height": 960,
-        "fps": 24,
-        "duracion": 6.5,
-        "webm": {
-          "archivo": "cascada.webm",
-          "bytes": 690877,
-          "crf": 34,
-          "kbps": 600,
-          "duracion": 6.5
+      "webp": {
+        "480": {
+          "archivo": "cascada-480.webp",
+          "bytes": 81988
         },
-        "mp4": {
-          "archivo": "cascada.mp4",
-          "bytes": 596978,
-          "crf": 32,
-          "duracion": 6.5
+        "720": {
+          "archivo": "cascada-720.webp",
+          "bytes": 150478
+        },
+        "1080": {
+          "archivo": "cascada-1080.webp",
+          "bytes": 240208
         }
       }
     },
@@ -1251,6 +1222,49 @@
         "1080": {
           "archivo": "sillas-piscina-1080.webp",
           "bytes": 354426
+        }
+      }
+    },
+    "parque-cerca": {
+      "momento": "14:00 (v2)",
+      "tipo": "foto",
+      "alt": "Estructura de juegos del parque acuático de cerca, con toboganes azul y naranja sobre una piscina baja, entre el bosque",
+      "width": 1080,
+      "height": 1920,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "parque-cerca-480.avif",
+          "bytes": 30493,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "parque-cerca-720.avif",
+          "bytes": 64368,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "parque-cerca-1080.avif",
+          "bytes": 135629,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "parque-cerca-480.webp",
+          "bytes": 50562
+        },
+        "720": {
+          "archivo": "parque-cerca-720.webp",
+          "bytes": 105848
+        },
+        "1080": {
+          "archivo": "parque-cerca-1080.webp",
+          "bytes": 214716
         }
       }
     }

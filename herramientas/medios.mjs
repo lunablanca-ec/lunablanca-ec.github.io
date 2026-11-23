@@ -68,7 +68,7 @@ async function imagenBase(it) {
       .png({ compressionLevel: 1 })
       .toBuffer();
   }
-  const t = it.tipo === 'cuadro' ? it.cuadro.t : it.video.inicio;
+  const t = it.tipo === 'cuadro' ? it.cuadro.t : (it.video.posterT ?? it.video.inicio);
   const tmp = path.join(TMP, `${it.id}-cuadro.png`);
   // ffmpeg aplica solo la rotacion del video (displaymatrix): la salida queda vertical.
   await ejecutar('ffmpeg', ['-v', 'error', '-y', '-ss', String(t), '-i', src, '-frames:v', '1',
@@ -140,7 +140,36 @@ async function codificar(it, formato, maxBytes) {
   throw new Error(`${it.id}.${formato}: no entra en ${maxBytes} bytes`);
 }
 
+// Video de alta resolución (hero): 1080x1920, H.264 con CRF 20-23 y preset veryfast, a 24 cuadros, sin audio.
+// El agua y el follaje hacen que el CRF solo pese 12 MB en 6 s: se le pone un tope de bitrate (maxrate) para que
+// el peso sea razonable. El lazo es sin salto: el final se funde con el principio (la cola del clip entra en fundido).
+// AV1 en WebM se probó y a calidad equivalente pesa más: no se publica.
+async function codificarAlta(it) {
+  const v = it.video;
+  const src = origen(it.origen);
+  const dest = path.join(SALIDA, `${it.id}.mp4`);
+  const [w, h] = [v.ancho ?? 1080, v.alto ?? 1920];
+  const f = v.lazo ?? 1;
+  const vf = `fps=${v.fps ?? 24},scale=${w}:${h}:flags=lanczos,setsar=1,format=yuv420p`;
+  const fc = `[0:v]${vf},setpts=PTS-STARTPTS[a];[1:v]${vf},setpts=PTS-STARTPTS[b];[a][b]xfade=transition=fade:duration=${f}:offset=0,format=yuv420p[v]`;
+  const t0 = v.inicio;
+  const args = ['-v', 'error', '-y', '-ss', String(t0 + v.duracion), '-t', String(f), '-i', src, '-ss', String(t0), '-t', String(v.duracion), '-i', src,
+    '-filter_complex', fc, '-map', '[v]', '-an', '-map_metadata', '-1', '-fflags', '+bitexact', '-flags:v', '+bitexact',
+    '-c:v', 'libx264', '-preset', 'veryfast', '-profile:v', 'high', '-level', '4.0', '-crf', String(v.crf ?? 22),
+    '-maxrate', v.maxrate ?? '5M', '-bufsize', v.bufsize ?? '10M', '-movflags', '+faststart', dest];
+  await ejecutar('ffmpeg', args);
+  const p = await ffprobeVideo(dest);
+  const s = p.streams[0];
+  if (s.width !== w || s.height !== h) throw new Error(`${it.id}.mp4: salio ${s.width}x${s.height}, no ${w}x${h}`);
+  const { stdout } = await ejecutar('ffprobe', ['-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=index', '-of', 'csv=p=0', dest]);
+  if (stdout.trim()) throw new Error(`${it.id}.mp4: tiene audio`);
+  await fs.rm(path.join(SALIDA, `${it.id}.webm`), { force: true });
+  const bytes = await tamano(dest);
+  return { mp4: { archivo: path.basename(dest), bytes, crf: v.crf ?? 22 }, duracion: Math.round(parseFloat(p.format.duration) * 10) / 10, width: w, height: h };
+}
+
 async function procesarVideo(it) {
+  if (it.video.alta) return codificarAlta(it);
   const maxBytes = (sel.presupuestoVideoKB ?? 700) * 1000;
   const webm = await codificar(it, 'webm', maxBytes);
   const mp4 = await codificar(it, 'mp4', maxBytes);
@@ -173,11 +202,11 @@ for (const it of items) {
   if (it.tipo === 'video') {
     videos++;
     const img = await exportarImagen(buf, it.recorte, `${it.id}-poster`, sel.anchos,
-      esHero ? { maxBytes: { 720: (sel.presupuestoPosterHeroKB ?? 120) * 1000, 480: 90000, 1080: 220000 } } : {});
+      esHero ? { calidadAvif: sel.calidadPosterHero ?? 64, maxBytes: { 720: (sel.presupuestoPosterHeroKB ?? 150) * 1000, 480: 80000, 1080: 280000 } } : {});
     const v = await procesarVideo(it);
     Object.assign(entrada, { width: img.width, height: img.height, anchos: img.anchos,
       poster: { avif: img.salidas.avif, webp: img.salidas.webp },
-      video: { width: 540, height: 960, fps: 24, duracion: v.webm.duracion, webm: v.webm, mp4: v.mp4 } });
+      video: v.webm ? { width: 540, height: 960, fps: 24, duracion: v.webm.duracion, webm: v.webm, mp4: v.mp4 } : { width: v.width, height: v.height, fps: it.video.fps ?? 24, duracion: v.duracion, mp4: v.mp4 } });
   } else {
     const img = await exportarImagen(buf, it.recorte, it.id, it.anchos ?? sel.anchos, { ajuste: it.ajuste });
     Object.assign(entrada, { width: img.width, height: img.height, anchos: img.anchos, avif: img.salidas.avif, webp: img.salidas.webp });

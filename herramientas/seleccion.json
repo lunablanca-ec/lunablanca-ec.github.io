@@ -6,7 +6,7 @@
     1080
   ],
   "presupuestoVideoKB": 700,
-  "presupuestoPosterHeroKB": 120,
+  "presupuestoPosterHeroKB": 150,
   "items": [
     {
       "id": "piscina-natural",
@@ -15,7 +15,16 @@
       "origen": "B-roll Luna Blanca-20261117T025410Z-1-002/B-roll Luna Blanca/20261115_135049.mp4",
       "video": {
         "inicio": 0.3,
-        "duracion": 7
+        "duracion": 5,
+        "lazo": 1,
+        "posterT": 5.3,
+        "alta": true,
+        "ancho": 1080,
+        "alto": 1920,
+        "fps": 24,
+        "crf": 22,
+        "maxrate": "5M",
+        "bufsize": "10M"
       },
       "recorte": {
         "aspecto": "9:16"
@@ -37,17 +46,16 @@
     },
     {
       "id": "cascada",
-      "momento": "9:00",
-      "tipo": "video",
+      "momento": "10:30 detalle",
+      "tipo": "cuadro",
       "origen": "B-roll Luna Blanca-20261117T025410Z-1-002/B-roll Luna Blanca/20261115_144029.mp4",
-      "video": {
-        "inicio": 0.4,
-        "duracion": 6.5
-      },
       "recorte": {
         "aspecto": "9:16"
       },
-      "alt": "Cascada pequeña que cae sobre rocas hacia una poza, entre palmas y selva"
+      "alt": "Cascada pequeña que cae sobre rocas hacia una poza, entre palmas y selva",
+      "cuadro": {
+        "t": 1.5
+      }
     },
     {
       "id": "luna-borde",
@@ -459,6 +467,18 @@
         "cy": 0.6
       },
       "alt": "Sillas blancas vacías sobre el césped, frente a la piscina y el tobogán, con el bosque detrás"
+    },
+    {
+      "id": "parque-cerca",
+      "momento": "14:00 (v2)",
+      "tipo": "foto",
+      "origen": "Extra/IMG-20260804-WA0014.jpeg",
+      "recorte": {
+        "aspecto": "9:16",
+        "cx": 0.5,
+        "cy": 0.5
+      },
+      "alt": "Estructura de juegos del parque acuático de cerca, con toboganes azul y naranja sobre una piscina baja, entre el bosque"
     }
   ],
   "og": {
@@ -483,5 +503,6 @@
       "lunablanca-sello-huella-crema"
     ],
     "favicon": "lunablanca-icono-perfil-verde"
-  }
+  },
+  "calidadPosterHero": 64
 }

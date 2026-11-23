@@ -266,13 +266,15 @@ function sincronizarVideos(activa) {
 }
 
 // ───────────── Botón flotante (opaco) ─────────────
+// Nunca tapa el texto de una escena: cada banda de texto deja espacio abajo y, mientras el texto de la escena
+// activa pasa por la esquina del botón, este se esconde al instante; vuelve a mostrarse entre escenas.
 
+const flotante = $('.flotante');
 (() => {
-  const flotante = $('.flotante');
   const resumen = $('#incluye');
   const armar = $('#arma-tu-dia');
-  // Se lee la geometría en cada aviso: el botón aparece pasado el resumen y antes de llegar a la calculadora, vengas de arriba o de abajo
   const actualizar = () => flotante.classList.toggle('visible', resumen.getBoundingClientRect().bottom < 0 && armar.getBoundingClientRect().top >= innerHeight);
+  // Se lee la geometría en cada aviso: el botón aparece pasado el resumen y antes de llegar a la calculadora, vengas de arriba o de abajo
   new IntersectionObserver(actualizar).observe(resumen);
   new IntersectionObserver(actualizar).observe(armar);
 })();
@@ -375,6 +377,7 @@ function cuadro() {
   let idx = 0;
   for (let k = 0; k < pins.length; k++) if (pins[k] - vh * 0.45 <= y) idx = k;
   if (idx !== activa) activarEscena(idx);
+  vigilarFlotante(idx);
 
   // Avance de cada escena cercana: zoom del fondo y parallax de las capas
   for (let k = Math.max(0, idx - 1); k <= Math.min(escenas.length - 1, idx + 1); k++) {
@@ -387,6 +390,21 @@ function cuadro() {
     const ll = acotar((y - (cierreTop - vh * 0.9)) / (vh * 0.75));
     if (Math.abs(ll - ultimoLl) > 0.004) { ultimoLl = ll; fijar(cierre, '--ll', ll.toFixed(3)); }
   }
+}
+
+// Esquina del botón flotante y bloque de texto de cada escena (primera y última línea)
+const bloquesTexto = escenas.map((e) => { const t = $('.texto', e); return t && [t.firstElementChild, t.lastElementChild]; });
+let esquina = innerHeight;
+let calla = false;
+const medirEsquina = () => { esquina = innerHeight - 16 - flotante.offsetHeight; };
+function vigilarFlotante(idx) {
+  // Animado: solo la escena activa se lee; en la versión quieta (sin escenas fijas) también las vecinas.
+  let tapa = false;
+  for (let k = quieto ? Math.max(0, idx - 1) : idx; k <= (quieto ? Math.min(escenas.length - 1, idx + 1) : idx); k++) {
+    const par = bloquesTexto[k];
+    if (par && par[0].getBoundingClientRect().top < innerHeight && par[1].getBoundingClientRect().bottom > esquina) { tapa = true; break; }
+  }
+  if (tapa !== calla) { calla = tapa; flotante.classList.toggle('calla', tapa); }
 }
 
 dia.aplicar = (conSalto) => pintarSol(ultimaH < 0 ? 8 : ultimaH, conSalto);
@@ -405,15 +423,17 @@ function cuadroQuieto() {
     pintarSol(horas[idx], false);
   }
   fijar(cierre, '--ll', y > cierreTop - vh * 0.5 ? 1 : 0);
+  vigilarFlotante(idx);
 }
 
 const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(quieto ? cuadroQuieto : cuadro); } };
 let reajuste;
-const reajustar = () => { clearTimeout(reajuste); reajuste = setTimeout(() => { medir(); pedir(); }, 150); };
+const reajustar = () => { clearTimeout(reajuste); reajuste = setTimeout(() => { medir(); medirEsquina(); pedir(); }, 150); };
 
 new IntersectionObserver(([x]) => { dia.enCalculadora = x.isIntersecting; dia.aplicar(true); }, { threshold: 0.15 }).observe(asientoCalculadora);
 
 medir();
+medirEsquina();
 activarEscena(0);
 if (quieto) cuadroQuieto(); else cuadro();
 addEventListener('scroll', pedir, { passive: true });
