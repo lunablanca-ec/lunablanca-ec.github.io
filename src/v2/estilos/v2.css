@@ -198,8 +198,8 @@ main { position: relative; z-index: 1; padding-top: var(--banda); }
   .borde { left: auto; right: calc(var(--margen) + 4vw); width: 46vw; top: -10px; height: 25vw; border-radius: 25vw 25vw 0 0 / 25vw 25vw 0 0; }
   .velo { display: none; }
   .capas { left: auto; right: var(--margen); width: 50vw; top: 0; bottom: 24px; inset-inline: auto var(--margen); }
-  .c1 { top: auto; bottom: 7%; left: -5vw; right: auto; width: 17vw; }
-  .texto { left: var(--margen); right: auto; width: 36vw; top: 0; bottom: 24px; display: flex; flex-direction: column; justify-content: center; padding: 0; }
+  .c1 { top: auto; bottom: 5%; left: 2vw; right: auto; width: 15vw; }
+  .texto { background: none; left: var(--margen); right: auto; width: 36vw; top: 0; bottom: 24px; display: flex; flex-direction: column; justify-content: center; padding: 0; }
   .texto > * { max-width: 32ch; }
   .texto h1, .texto h2 { color: var(--tx); }
   .texto h1 { font-size: clamp(3rem, 5vw, 4.75rem); }
