@@ -28,7 +28,8 @@
   --cielo-v2-manana: linear-gradient(180deg, color-mix(in srgb, var(--agua) 26%, var(--crema)) 0%, color-mix(in srgb, var(--agua) 6%, var(--crema)) 85%);
   --cielo-v2-mediodia: linear-gradient(180deg, var(--crema) 0%, color-mix(in srgb, var(--agua) 10%, var(--crema)) 100%);
   --cielo-v2-tarde: linear-gradient(180deg, color-mix(in srgb, var(--ambar) 55%, var(--crema)) 0%, color-mix(in srgb, var(--ambar) 22%, var(--crema)) 100%);
-}
+  transform: translate3d(calc(var(--ps, 0) * 100cqw), calc(4 * (var(--ps, 0) - .5) * (var(--ps, 0) - .5) * 34px), 0); }
+
 html.noche { --tx: var(--crema); --tx-2: var(--crema-suave); }
 /* --h (la hora) solo se escribe en estos dos elementos: así cada cuadro recalcula estilos de pocos nodos */
 .banda, .cielo-pleno { --noche: clamp(0, calc((var(--h) - 18.8) / 1.2), 1); }
@@ -60,7 +61,6 @@ main { position: relative; z-index: 1; padding-top: var(--banda); }
 .c-noche { background: var(--cielo-noche); opacity: clamp(0, calc((var(--h) - 18.8) / 1.2), 1); }
 /* Estrellas: solo aparecen con la noche, muy tenues */
 .estrellas { position: absolute; inset: 0; opacity: calc(var(--noche) * .5); background: var(--estrellas-fondo); }
-  transform: translate3d(calc(var(--ps, 0) * 100cqw), calc(4 * (var(--ps, 0) - .5) * (var(--ps, 0) - .5) * 34px), 0); }
 .arco.salta .sol { transition: transform 900ms var(--ease-calma); }
 .sol-punto { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--ambar);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--ambar) 32%, transparent), 0 0 14px var(--ambar); }
