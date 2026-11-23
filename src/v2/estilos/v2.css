@@ -159,15 +159,13 @@ main { position: relative; z-index: 1; padding-top: var(--banda); }
   box-shadow: 0 0 0 500vmax var(--verde); animation: ap-abre 500ms cubic-bezier(.65, 0, .35, 1) 1040ms both, ap-vela 230ms linear 1430ms both; }
 .ap-luna { position: absolute; left: calc(50% - 46 * var(--u)); top: calc(46% - 50 * var(--u)); width: var(--s); height: calc(var(--s) * 100 / 104); overflow: visible;
   transform-origin: 46px 50px; animation: ap-entra 450ms var(--ease-calma) backwards, ap-sale 260ms cubic-bezier(.5, 0, .75, 0) 1040ms forwards; }
+.ap-fondo { fill: var(--verde); } /* tapa el hueco bajo la luna: sin filos y sin que asome el hero */
 .ap-llena { fill: var(--crema); }
-.ap-bocado { fill: var(--verde); animation: ap-bocado 520ms cubic-bezier(.45, .05, .25, 1) 180ms both; }
-.ap-halo, .ap-ojo { fill: var(--ambar); transform-origin: 61px 48.5px; }
-.ap-ojo { animation: ap-ojo 320ms var(--ease-calma) 640ms both; }
-.ap-halo { animation: ap-halo 520ms ease-out 700ms both; }
+.ap-corte { animation: ap-corte 520ms cubic-bezier(.45, .05, .25, 1) 180ms both; }
+.ap-ojo { fill: var(--ambar); transform-origin: 61px 48.5px; animation: ap-ojo 360ms var(--ease-calma) 640ms both; }
 @keyframes ap-entra { from { scale: .94; } }
-@keyframes ap-bocado { from { transform: translate(68px, -14px); } }
-@keyframes ap-ojo { 0% { scale: 0; } 70% { scale: 1.16; } 100% { scale: 1; } }
-@keyframes ap-halo { 0% { scale: .6; opacity: 0; } 40% { opacity: .45; } 100% { scale: 1.5; opacity: 0; } }
+@keyframes ap-corte { from { transform: translate(68px, -14px); } }
+@keyframes ap-ojo { from { scale: .6; opacity: 0; } }
 @keyframes ap-sale { to { scale: 1.7; opacity: 0; } }
 @keyframes ap-vela { to { opacity: 0; } }
 @keyframes ap-abre { from { transform: translate(var(--ap-tx), var(--ap-ty)) scale(var(--ap-sx), var(--ap-sy)); border-radius: 50%; } }
