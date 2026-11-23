@@ -150,7 +150,7 @@ main { position: relative; z-index: 1; padding-top: var(--banda); }
 /* ───────── Apertura "La misma mirada" ─────────
    Verde profundo, luna llena en crema; un disco verde la cruza y la deja en creciente; el punto ámbar se enciende como un ojo.
    Luego la curva de la luna se abre hacia la pantalla y queda como el borde curvo superior del hero. El hero se pinta debajo desde el inicio.
-   El script del <head> la enciende solo en la primera visita de la sesión; 1,7 s como máximo; se salta con un toque o una tecla. */
+   El script del <head> la enciende en cada carga; 1,7 s como máximo; se salta con un toque o una tecla. */
 .apertura { display: none; }
 .ap .apertura { display: block; position: fixed; inset: 0; z-index: 100; overflow: hidden; pointer-events: auto; --s: clamp(170px, 56vmin, 340px); --u: calc(var(--s) / 104); }
 /* El hueco tiene siempre la geometría final del hero; solo se anima transform (y el radio): nada cambia el layout.

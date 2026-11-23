@@ -89,10 +89,11 @@ test('las imágenes de escenas lejanas no se piden al abrir (data-src), el hero 
   assert.ok(imgs.filter((i) => i.includes('data-src=')).length >= 5);
 });
 
-test('apertura "La misma mirada": solo la primera visita, sin movimiento reducido, se salta, dura ≤ 1,8 s y pesa ≤ 10 KB', () => {
+test('apertura "La misma mirada": en cada carga, sin movimiento reducido, se salta, dura ≤ 1,8 s y pesa ≤ 10 KB', () => {
   assert.match(v2, /<div class="apertura" aria-hidden="true">/);
   const script = /<script>(var d=document[\s\S]*?)<\/script>/.exec(v2)[1];
-  assert.match(script, /try\{[^}]*prefers-reduced-motion:reduce[^}]*sessionStorage\.getItem\("lb-ap"\)[^}]*sessionStorage\.setItem\("lb-ap","1"\)\}catch\(e\)\{\}/);
+  assert.ok(script.includes(`if(matchMedia("(prefers-reduced-motion:reduce)").matches||location.hash)return;`));
+  assert.doesNotMatch(script, /sessionStorage/);
   assert.match(script, /pointerdown/);
   assert.match(script, /keydown/);
   const limite = Number(/setTimeout\(r,(\d+)\)/.exec(script)[1]);
