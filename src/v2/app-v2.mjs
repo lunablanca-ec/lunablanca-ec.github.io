@@ -271,10 +271,10 @@ function sincronizarVideos(activa) {
   const flotante = $('.flotante');
   const resumen = $('#incluye');
   const armar = $('#arma-tu-dia');
-  const e = { resumenPasado: false, resumenVisible: true, armarVisible: false, armarPasado: false };
-  const actualizar = () => flotante.classList.toggle('visible', e.resumenPasado && !e.resumenVisible && !e.armarVisible && !e.armarPasado);
-  new IntersectionObserver(([x]) => { e.resumenVisible = x.isIntersecting; e.resumenPasado = !x.isIntersecting && x.boundingClientRect.bottom < 0; actualizar(); }).observe(resumen);
-  new IntersectionObserver(([x]) => { e.armarVisible = x.isIntersecting; e.armarPasado = !x.isIntersecting && x.boundingClientRect.bottom < 0; actualizar(); }).observe(armar);
+  // Se lee la geometría en cada aviso: el botón aparece pasado el resumen y antes de llegar a la calculadora, vengas de arriba o de abajo
+  const actualizar = () => flotante.classList.toggle('visible', resumen.getBoundingClientRect().bottom < 0 && armar.getBoundingClientRect().top >= innerHeight);
+  new IntersectionObserver(actualizar).observe(resumen);
+  new IntersectionObserver(actualizar).observe(armar);
 })();
 
 // La tipografía 600 (solo el total) se pide cuando la calculadora se acerca.
