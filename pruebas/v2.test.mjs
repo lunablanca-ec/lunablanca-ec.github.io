@@ -30,13 +30,14 @@ test('la v2 no tiene galería "Así se vive" y tiene como máximo 6 escenas de m
   assert.ok(escenas.length >= 5 && escenas.length <= 6, `hay ${escenas.length} escenas`);
 });
 
-test('cada escena lleva 2 o 3 fotos por capas (la de la noche va enmarcada), nunca una grilla', () => {
+test('cada escena tiene un medio dominante y como máximo un detalle secundario, nunca un collage', () => {
   const secciones = v2.split('<section class="escena').slice(1);
   for (const s of secciones.filter((x) => /id="m-\d{4}"/.test(x) && !x.startsWith(' enmarcada'))) {
     const capas = (s.match(/<figure class="capa /g) ?? []).length;
-    assert.ok(capas >= 2 && capas <= 3, `capas: ${capas}`);
+    assert.ok(capas <= 1, `capas: ${capas}`);
   }
   assert.doesNotMatch(cuerpo(v2), /rejilla|galeria-/);
+  assert.doesNotMatch(v2, /adultos-descansan/, 'ninguna persona descansando en primer plano');
 });
 
 test('todos los videos llevan poster y son decorativos', () => {

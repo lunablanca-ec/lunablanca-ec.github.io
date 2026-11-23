@@ -447,6 +447,18 @@
         480,
         720
       ]
+    },
+    {
+      "id": "sillas-piscina",
+      "momento": "14:00 (v2)",
+      "tipo": "foto",
+      "origen": "Extra/20260804_134523.jpg",
+      "recorte": {
+        "aspecto": "4:5",
+        "cx": 0.5,
+        "cy": 0.6
+      },
+      "alt": "Sillas blancas vacías sobre el césped, frente a la piscina y el tobogán, con el bosque detrás"
     }
   ],
   "og": {

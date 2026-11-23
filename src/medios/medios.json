@@ -1210,6 +1210,49 @@
           "bytes": 86460
         }
       }
+    },
+    "sillas-piscina": {
+      "momento": "14:00 (v2)",
+      "tipo": "foto",
+      "alt": "Sillas blancas vacías sobre el césped, frente a la piscina y el tobogán, con el bosque detrás",
+      "width": 1080,
+      "height": 1350,
+      "anchos": [
+        480,
+        720,
+        1080
+      ],
+      "avif": {
+        "480": {
+          "archivo": "sillas-piscina-480.avif",
+          "bytes": 37758,
+          "calidad": 50
+        },
+        "720": {
+          "archivo": "sillas-piscina-720.avif",
+          "bytes": 87105,
+          "calidad": 50
+        },
+        "1080": {
+          "archivo": "sillas-piscina-1080.avif",
+          "bytes": 195878,
+          "calidad": 50
+        }
+      },
+      "webp": {
+        "480": {
+          "archivo": "sillas-piscina-480.webp",
+          "bytes": 68152
+        },
+        "720": {
+          "archivo": "sillas-piscina-720.webp",
+          "bytes": 159742
+        },
+        "1080": {
+          "archivo": "sillas-piscina-1080.webp",
+          "bytes": 354426
+        }
+      }
     }
   },
   "og": {

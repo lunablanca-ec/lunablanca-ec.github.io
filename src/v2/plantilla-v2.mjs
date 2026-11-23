@@ -12,11 +12,11 @@ const jsonSeguro = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
 
 /** Diseño de cada escena: fondo, capas (2 o 3 fotos con profundidad) y a qué hora del arco pertenece. */
 export const ESCENAS = [
-  { id: 'm-0900', hora: 9, fondo: 'sendero', capas: ['vive-salto', 'vive-mirador'], linea: 'lineaMedio2' },
-  { id: 'm-1030', hora: 10.5, fondo: 'cascada', capas: ['luna-borde', 'luna-p01'], linea: 'lineaFotos' },
-  { id: 'm-1200', hora: 12, fondo: 'piscina-reservada', capas: ['bbq', 'vive-piscina'], nota: 'nota' },
-  { id: 'm-1400', hora: 14, fondo: 'parque-ninos', capas: ['tobogan', 'adultos-descansan', 'vive-espiral'] },
-  { id: 'm-1830', hora: 18.5, fondo: 'tarde', capas: ['puente', 'vive-poza'], extra: 'm-1700' },
+  { id: 'm-0900', hora: 9, fondo: 'sendero', capas: ['vive-salto'], linea: 'lineaMedio2' },
+  { id: 'm-1030', hora: 10.5, fondo: 'cascada', capas: ['luna-borde'], linea: 'lineaFotos' },
+  { id: 'm-1200', hora: 12, fondo: 'piscina-reservada', capas: ['bbq'], nota: 'nota' },
+  { id: 'm-1400', hora: 14, fondo: 'parque-ninos', capas: [{ id: 'sillas-piscina', rotulo: 2 }] },
+  { id: 'm-1830', hora: 18.5, fondo: 'tarde', capas: ['puente'], extra: 'm-1700' },
   { id: 'm-2000', hora: 20, fondo: 'noche', capas: [], enmarcada: true },
 ];
 
@@ -109,7 +109,11 @@ export function renderizarV2({ sitio, medios, hoy, activos = {} }) {
     if (def.linea && m[def.linea]) cuerpo.push({ texto: m[def.linea] });
     if (def.nota && m[def.nota]) cuerpo.push({ texto: m[def.nota], nota: true });
     if (def.extra) cuerpo.push({ texto: momentos[def.extra].texto, nota: true });
-    const capas = def.capas.map((id, k) => `<figure class="capa c${k + 1}" style="--k:${k}">${imagen(id, { sizes: SIZES_CAPA, diferida: true })}</figure>`).join('');
+    const capas = def.capas.slice(0, 1).map((x) => {
+      const { id, rotulo } = typeof x === 'string' ? { id: x } : x;
+      const pie = rotulo === undefined ? '' : `<figcaption>${esc(m.rotulos[rotulo])}</figcaption>`;
+      return `<figure class="capa c1" style="--k:0">${imagen(id, { sizes: SIZES_CAPA, diferida: true })}${pie}</figure>`;
+    }).join('');
     const etiqueta = `<p class="etiqueta l" style="--i:0"><span class="hora-escena">${esc(rotulo)}</span>${m.etiqueta ? ` · ${esc(m.etiqueta)}` : ''}</p>`;
     const fondoMedio = def.enmarcada ? fondo(def.fondo, { diferida: true }) : fondo(def.fondo, { video: true, diferida: true });
     return `
