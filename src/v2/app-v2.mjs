@@ -15,6 +15,8 @@ const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ahorroDatos = Boolean(navigator.connection?.saveData);
 const sinVideoAuto = quieto || ahorroDatos;
 const raiz = document.documentElement;
+// Celular y tableta (< 900 px): sin escenas fijas; cada momento es un bloque en flujo normal.
+const movil = matchMedia('(max-width: 899.98px)');
 
 // ───────────── Sello y UTM ─────────────
 
@@ -279,14 +281,38 @@ const flotante = $('.flotante');
   new IntersectionObserver(actualizar).observe(armar);
 })();
 
+// En celular el botón se esconde mientras un texto pasa por su zona (la del botón y 24 px de aire).
+// Un IntersectionObserver con esa zona como raíz avisa sin leer geometría en cada cuadro; se rearma si cambia el ancho.
+const textosCelular = $$('.escena.momento .texto > *, #incluye .incluye-lista, #incluye .precio-bloque');
+const bajoBoton = new Set();
+let zona;
+let muestra;
+let altoMin = innerHeight; // con la barra de direcciones visible el viewport es el más bajo: la zona se mide con ese alto y sobra, nunca falta
+function armarZona() {
+  zona?.disconnect();
+  bajoBoton.clear();
+  const ancho = (flotante.offsetWidth || 150) + 16 + 24;
+  const alto = (flotante.offsetHeight || 44) + 16 + 24;
+  zona = new IntersectionObserver((entradas) => {
+    for (const e of entradas) { if (e.isIntersecting) bajoBoton.add(e.target); else bajoBoton.delete(e.target); }
+    if (!movil.matches) return;
+    clearTimeout(muestra);
+    if (bajoBoton.size) flotante.classList.add('calla');
+    else muestra = setTimeout(() => { if (!bajoBoton.size) flotante.classList.remove('calla'); }, 140);
+  }, { rootMargin: `-${Math.max(0, altoMin - alto)}px 0px 0px -${Math.max(0, innerWidth - ancho)}px` });
+  textosCelular.forEach((t) => zona.observe(t));
+}
+
 // La tipografía 600 (solo el total) se pide cuando la calculadora se acerca.
 new IntersectionObserver(([x], io) => { if (x.isIntersecting) { raiz.classList.add('ver-total'); io.disconnect(); } }, { rootMargin: '900px 0px' }).observe($('#arma-tu-dia'));
 
 // ───────────── Imágenes de las escenas: se piden cuando la escena se acerca ─────────────
 
 function hidratar(escena) {
-  $$('[data-srcset]', escena).forEach((s) => { s.srcset = s.dataset.srcset; s.removeAttribute('data-srcset'); });
-  $$('img[data-src]', escena).forEach((i) => { i.src = i.dataset.src; i.removeAttribute('data-src'); });
+  // En celular las capas de detalle no se muestran: no se piden.
+  const visible = (el) => !movil.matches || !el.closest('.capas');
+  $$('[data-srcset]', escena).filter(visible).forEach((s) => { s.srcset = s.dataset.srcset; s.removeAttribute('data-srcset'); });
+  $$('img[data-src]', escena).filter(visible).forEach((i) => { i.src = i.dataset.src; i.removeAttribute('data-src'); i.decode?.().catch(() => {}); }); // decode(): la foto se descodifica antes de llegar a pantalla, no en pleno scroll
   $$('video[data-poster]', escena).forEach((v) => { v.poster = v.dataset.poster; v.removeAttribute('data-poster'); });
 }
 let hidratacionLista = false;
@@ -295,7 +321,20 @@ const alcance = new IntersectionObserver((entradas) => {
 }, { rootMargin: '150% 0px' });
 // Primero se espera a que termine la carga del hero; después se observan las escenas.
 const empezarHidratar = () => { hidratacionLista = true; $$('[data-escena]').forEach((e) => alcance.observe(e)); };
+// Si el aparato gira a un ancho de escritorio, se piden también las capas que en celular se saltaron.
+movil.addEventListener('change', () => { if (!movil.matches && hidratacionLista) $$('[data-escena]').forEach(hidratar); });
 if (document.readyState === 'complete') setTimeout(empezarHidratar, 400); else addEventListener('load', () => setTimeout(empezarHidratar, 400), { once: true });
+
+// ───────────── Celular: entrada de cada bloque (una sola vez) ─────────────
+// La foto se revela con la curva al entrar; el texto sube al llegar el título. Solo clip-path, transform y opacity.
+(() => {
+  const ver = (clase) => new IntersectionObserver((entradas, io) => {
+    for (const e of entradas) if (e.isIntersecting) { e.target.closest('.escena').classList.add(clase); io.unobserve(e.target); }
+  }, { rootMargin: '0px 0px -10% 0px' });
+  const foto = ver('visto-f');
+  const texto = ver('visto-t');
+  $$('.escena.momento').forEach((e) => { foto.observe($('.vidrio', e)); texto.observe($('h2', e)); });
+})();
 
 // ───────────── El día gira ─────────────
 
@@ -308,6 +347,7 @@ const cierre = $('#cierre');
 const bandaCielo = $('.banda');
 const cieloPleno = $('.cielo-pleno');
 let estaNoche = false;
+const recorrido = $('[data-escenas]');
 const asientoCalculadora = $('#arma-tu-dia');
 
 let pins = [];
@@ -361,8 +401,9 @@ function ponerHora(h) {
   const v = h.toFixed(3);
   fijar(bandaCielo, '--h', v);
   fijar(cieloPleno, '--h', v);
-  const noche = h >= 18.8;
-  if (noche !== estaNoche) { estaNoche = noche; raiz.classList.toggle('noche', noche); }
+  const noche = h >= (movil.matches ? 19.4 : 18.8); // en celular el texto va sobre el cielo: cambia de tinta cuando ya está oscuro
+  // En celular la tinta de noche solo cambia dentro del recorrido (no reestiliza la página entera en pleno scroll)
+  if (noche !== estaNoche) { estaNoche = noche; raiz.classList.toggle('noche', noche && !movil.matches); recorrido.classList.toggle('noche', noche && movil.matches); }
 }
 
 function cuadro() {
@@ -377,10 +418,10 @@ function cuadro() {
   let idx = 0;
   for (let k = 0; k < pins.length; k++) if (pins[k] - vh * 0.45 <= y) idx = k;
   if (idx !== activa) activarEscena(idx);
-  vigilarFlotante(idx);
+  if (!movil.matches) vigilarFlotante(idx);
 
-  // Avance de cada escena cercana: zoom del fondo y parallax de las capas
-  for (let k = Math.max(0, idx - 1); k <= Math.min(escenas.length - 1, idx + 1); k++) {
+  // Avance de cada escena cercana: zoom del fondo y parallax de las capas (solo escritorio)
+  if (!movil.matches) for (let k = Math.max(0, idx - 1); k <= Math.min(escenas.length - 1, idx + 1); k++) {
     const largo = k + 1 < pins.length ? pins[k + 1] - pins[k] : vh * 0.7;
     const u = acotar((y - (pins[k] - vh * 0.9)) / (vh * 0.9 + largo));
     if (Math.abs(u - ultimaU[k]) > 0.002) { ultimaU[k] = u; fijar(escenas[k], '--u', u.toFixed(3)); }
@@ -423,17 +464,22 @@ function cuadroQuieto() {
     pintarSol(horas[idx], false);
   }
   fijar(cierre, '--ll', y > cierreTop - vh * 0.5 ? 1 : 0);
-  vigilarFlotante(idx);
+  if (!movil.matches) vigilarFlotante(idx);
 }
 
 const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(quieto ? cuadroQuieto : cuadro); } };
 let reajuste;
 const reajustar = () => { clearTimeout(reajuste); reajuste = setTimeout(() => { medir(); medirEsquina(); pedir(); }, 150); };
+// La zona del botón se rearma solo si cambia el ancho (la barra de direcciones mueve ~56 px de alto y no hace falta).
+let zonaAncho = innerWidth;
+addEventListener('resize', () => { if (innerWidth !== zonaAncho || innerHeight < altoMin) { zonaAncho = innerWidth; altoMin = Math.min(altoMin, innerHeight); armarZona(); } });
+movil.addEventListener('change', () => { armarZona(); ultimaH = -1; estaNoche = null; reajustar(); });
 
 new IntersectionObserver(([x]) => { dia.enCalculadora = x.isIntersecting; dia.aplicar(true); }, { threshold: 0.15 }).observe(asientoCalculadora);
 
 medir();
 medirEsquina();
+armarZona();
 activarEscena(0);
 if (quieto) cuadroQuieto(); else cuadro();
 addEventListener('scroll', pedir, { passive: true });

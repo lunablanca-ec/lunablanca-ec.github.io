@@ -30,7 +30,7 @@
   --cielo-v2-tarde: linear-gradient(180deg, color-mix(in srgb, var(--ambar) 55%, var(--crema)) 0%, color-mix(in srgb, var(--ambar) 22%, var(--crema)) 100%);
   transform: translate3d(calc(var(--ps, 0) * 100cqw), calc(4 * (var(--ps, 0) - .5) * (var(--ps, 0) - .5) * 34px), 0); }
 
-html.noche { --tx: var(--crema); --tx-2: var(--crema-suave); }
+html.noche, .escenas.noche { --tx: var(--crema); --tx-2: var(--crema-suave); }
 /* --h (la hora) solo se escribe en estos dos elementos: así cada cuadro recalcula estilos de pocos nodos */
 .banda, .cielo-pleno { --noche: clamp(0, calc((var(--h) - 18.8) / 1.2), 1); }
 .banda { --tx: color-mix(in srgb, var(--crema) calc(var(--noche) * 100%), var(--verde)); }
@@ -271,4 +271,59 @@ main { position: relative; z-index: 1; padding-top: var(--banda); }
   .cielo i, .estrellas { transition: opacity 300ms linear; }
   .arco.salta .sol, .arco.salta .luna-logo, .flotante, .total.cuenta span, .contador output.pop { transition: none; animation: none; }
   .fondo video { transition: none; }
+}
+
+/* ───────── Celular y tableta (< 900 px): recorrido simple, sin sticky ni scroll-jacking ─────────
+   Cada momento es un bloque en flujo normal: hora, foto 4:5 con la curva de la luna y, debajo, título y texto sobre el cielo.
+   Alturas por contenido, aspect-ratio en cada foto (CLS 0) y unidades svh/lvh: la barra de direcciones no mueve nada.
+   Solo se anima transform, opacity y clip-path, una vez por bloque. */
+@media (max-width: 899.98px) {
+  /* Fijos que no dependen del alto cambiante del viewport */
+  .cielo-pleno { bottom: auto; height: 100lvh; }
+  .huella { bottom: auto; height: calc(100svh - var(--banda) - 28px); }
+
+  /* La portada deja de ser fija: es el primer bloque del flujo */
+  .escena.portada { position: relative; top: auto; margin-bottom: 0; }
+
+  .escena.momento { position: relative; top: auto; height: auto; margin-bottom: 0; display: flex; flex-direction: column; padding: 2.75rem var(--margen) 0;
+    color: var(--tx); --texto: var(--tx); --texto-2: var(--tx); --acento: var(--ambar-hondo); --foco: var(--tx); }
+  .escena.momento .borde, .escena.momento .capas, .escena.momento .velo { display: none; }
+  .escena.momento .texto { display: contents; }
+
+  .escena.momento .etiqueta { order: 1; margin-bottom: .75rem; color: var(--ambar-hondo); }
+  .escenas.noche .escena.momento .texto .etiqueta { color: var(--ambar); }
+  .escena.momento .vidrio { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 4 / 5; margin-bottom: 1.5rem;
+    border-radius: 50% 50% 4px 4px / 14% 14% 4px 4px; background: color-mix(in srgb, var(--tx) 10%, transparent);
+    box-shadow: 0 -3px 0 color-mix(in srgb, var(--ambar) 62%, var(--crema)); }
+  .escena.momento .texto > :not(.etiqueta) { order: 3; }
+  .escena.momento .texto h2 { margin-bottom: .6rem; color: var(--tx); }
+  .escena.momento .texto p:not(.etiqueta) { color: var(--tx); }
+  .escena.momento .texto p.nota:not(.etiqueta) { color: var(--tx-2); }
+
+  /* Foto única: sin zoom ni parallax; el recorte de cada toma se elige por imagen */
+  .escena.momento .fondo { scale: none; translate: none; }
+  .escena.momento .fondo img { object-position: 50% 50%; }
+  .fondo[data-medio="sendero"] img { object-position: 50% 55%; }
+  .fondo[data-medio="luna-borde"] img { object-position: 50% 78%; }
+  .fondo[data-medio="piscina-reservada"] img { object-position: 50% 62%; }
+  .fondo[data-medio="parque-cerca"] img { object-position: 50% 34%; }
+  .fondo[data-medio="tarde"] img { object-position: 50% 70%; }
+  .fondo[data-medio="noche"] img { object-position: 0% 50%; }
+  .escena.enmarcada .fondo { inset: 0; border-radius: 0; }
+
+  /* Entrada: la foto se revela con la curva, el texto sube 12 px; una sola vez por bloque */
+  .js .escena.momento .fondo { opacity: 0; clip-path: inset(26% 0 0 0 round 50% 50% 0 0 / 14% 14% 0 0);
+    transition: opacity 500ms var(--ease-calma), clip-path 900ms var(--ease-calma); }
+  .js .escena.momento.visto-f .fondo { opacity: 1; clip-path: inset(0% 0 0 0 round 50% 50% 0 0 / 0% 0% 0 0); }
+  .js .escena.momento .l { opacity: 0; translate: none; transform: translate3d(0, 12px, 0); transition: none; }
+  .js .escena.momento.visto-f .etiqueta.l, .js .escena.momento.visto-t .l:not(.etiqueta) { opacity: 1; transform: none;
+    transition: opacity 600ms var(--ease-calma), transform 600ms var(--ease-calma), color 250ms linear; transition-delay: calc(var(--i) * 80ms); }
+  .escena.momento.visto-t .l:not(.etiqueta), .escena.momento.visto-f .etiqueta.l { transition-property: opacity, transform, color; }
+
+  /* Cierre del último momento: el siguiente bloque (calculadora) empieza con aire */
+  .escena.momento:last-of-type { padding-bottom: 2rem; }
+}
+@media (max-width: 899.98px) and (prefers-reduced-motion: reduce) {
+  .js .escena.momento .fondo { opacity: 1; clip-path: none; transition: none; }
+  .js .escena.momento .l { opacity: 1; transform: none; transition: none; }
 }

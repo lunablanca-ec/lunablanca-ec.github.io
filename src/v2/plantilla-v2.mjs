@@ -155,7 +155,7 @@ export function renderizarV2({ sitio, medios, hoy, activos = {} }) {
     const fondoMedio = def.enmarcada ? fondo(def.fondo, { diferida: true }) : fondo(def.fondo, { video: true, diferida: true });
     return `
     <i class="ancla" data-ancla></i>
-    <section class="escena${def.enmarcada ? ' enmarcada' : ''}" id="${m.id}" data-escena="${indice}" data-hora="${def.hora}" aria-labelledby="t-${m.id}">
+    <section class="escena momento${def.enmarcada ? ' enmarcada' : ''}" id="${m.id}" data-escena="${indice}" data-hora="${def.hora}" aria-labelledby="t-${m.id}">
       <div class="borde" aria-hidden="true"></div>
       <div class="vidrio">${fondoMedio}<div class="velo"></div></div>
       <div class="capas">${capas}</div>
